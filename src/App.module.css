@@ -1,0 +1,12 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.burger-container {
+  display: flex;
+  gap: 40px;
+  max-width: 1240px;
+  width: 100%;
+}
