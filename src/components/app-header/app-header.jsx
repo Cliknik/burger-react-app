@@ -1,7 +1,7 @@
 import React from 'react';
 import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
-import appHeaderStyles from './appheader.module.css';
+import appHeaderStyles from './app-header.module.css';
 
 class AppHeader extends React.Component {
     constructor(props) {

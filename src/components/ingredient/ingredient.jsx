@@ -1,7 +1,7 @@
 import React from "react";
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {CurrencyIcon, Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styles from './Ingredient.module.css'
+import styles from './ingredient.module.css'
 
 function Ingredient(props) {
     return (
