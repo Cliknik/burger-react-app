@@ -1,16 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
 
 import Styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import data from "../../utils/data";
 import Ingredient from "../ingredient/ingredient";
 
-function BurgerIngredients() {
+function BurgerIngredients(props) {
         const [current, setCurrent] = React.useState('one');
 
-        const buns = data.filter(item => item.type === "bun");
-        const sauces = data.filter(item => item.type === "sauce");
-        const fillings = data.filter(item => item.type === "main");
+        const buns = props.items.filter(item => item.type === "bun");
+        const sauces = props.items.filter(item => item.type === "sauce");
+        const fillings = props.items.filter(item => item.type === "main");
 
         return (
             <section className={Styles.section}>

@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.burger-container {
+.burgerContainer {
   display: flex;
   gap: 40px;
   max-width: 1240px;

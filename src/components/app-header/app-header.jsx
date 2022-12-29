@@ -15,17 +15,17 @@ class AppHeader extends React.Component {
                     <div className={appHeaderStyles.container}>
                         <div className={ `pl-5 ${appHeaderStyles.navItem}`}>
                             <BurgerIcon type={"primary"} />
-                            <p className="text text_type_main-small pl-2">Конструктор</p>
+                            <p className="text text_type_main-small pl-2 pr-5">Конструктор</p>
                         </div>
                         <div className={ `pl-5 ${appHeaderStyles.navItem}`}>
                             <ListIcon type={"secondary"} />
-                            <p className="text text_type_main-small text_color_inactive pl-2">Лента заказов</p>
+                            <p className="text text_type_main-small text_color_inactive pl-2 pr-5">Лента заказов</p>
                         </div>
                     </div>
                     <Logo />
                     <div className={ `pl-5 ${appHeaderStyles.navAccount}` } >
                         <ProfileIcon type={"secondary"} />
-                        <p className="text text_type_main-small text_color_inactive pl-2">Личный кабинет</p>
+                        <p className="text text_type_main-small text_color_inactive pl-2 pr-5">Личный кабинет</p>
                     </div>
                 </nav>
             </header>
