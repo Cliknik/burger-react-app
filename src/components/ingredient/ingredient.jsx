@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import {CurrencyIcon, Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './ingredient.module.css'
@@ -13,5 +15,11 @@ function Ingredient(props) {
         </div>
     )
 }
+
+Ingredient.propTypes = PropTypes.objectOf({
+    image: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+}).isRequired
 
 export default Ingredient;

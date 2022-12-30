@@ -3,35 +3,28 @@ import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-devel
 
 import appHeaderStyles from './app-header.module.css';
 
-class AppHeader extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-    render() {
+function AppHeader() {
         return (
             <header className={ `p-2 ${appHeaderStyles.header}`}>
                 <nav className={appHeaderStyles.navigation}>
                     <div className={appHeaderStyles.container}>
-                        <div className={ `pl-5 ${appHeaderStyles.navItem}`}>
+                        <a className={ `pl-5 ${appHeaderStyles.navItem}`} href='#'>
                             <BurgerIcon type={"primary"} />
                             <p className="text text_type_main-small pl-2 pr-5">Конструктор</p>
-                        </div>
-                        <div className={ `pl-5 ${appHeaderStyles.navItem}`}>
+                        </a>
+                        <a className={ `pl-5 ${appHeaderStyles.navItem}`} href='#'>
                             <ListIcon type={"secondary"} />
                             <p className="text text_type_main-small text_color_inactive pl-2 pr-5">Лента заказов</p>
-                        </div>
+                        </a>
                     </div>
                     <Logo />
-                    <div className={ `pl-5 ${appHeaderStyles.navAccount}` } >
+                    <a className={ `pl-5 ${appHeaderStyles.navAccount}` } href='#'>
                         <ProfileIcon type={"secondary"} />
-                        <p className="text text_type_main-small text_color_inactive pl-2 pr-5">Личный кабинет</p>
-                    </div>
+                        <p className={`text text_type_main-small text_color_inactive pl-2 pr-5 ${appHeaderStyles.navAccountLink}`}>Личный кабинет</p>
+                    </a>
                 </nav>
             </header>
         )
-
-    }
 
 }
 

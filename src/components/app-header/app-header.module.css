@@ -18,11 +18,22 @@
 .navItem {
     display: flex;
     align-items: center;
+    color: inherit;
+}
+
+.navItem > * {
+    text-decoration: none;
 }
 
 .navAccount {
-    composes: navItem;
+    display: flex;
+    align-items: center;
+    color: inherit;
     justify-self: flex-end;
+}
+
+.navAccountLink {
+    text-decoration: none;
 }
 
 .container {
