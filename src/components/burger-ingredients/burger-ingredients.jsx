@@ -32,15 +32,15 @@ function BurgerIngredients(props) {
                 <div className={Styles.scrollSection}>
                     <h2 className="" id="buns">Булки</h2>
                     <div className={Styles.ingredientsContainer}>
-                        {buns.map(item => <Ingredient key={item.id} image={item.image} price={item.price} name={item.name} />)}
+                        {buns.map(item => <Ingredient key={item._id} image={item.image} price={item.price} name={item.name} />)}
                     </div>
                     <h2 id="sauces">Соусы</h2>
                     <div className={Styles.ingredientsContainer}>
-                        {sauces.map(item => <Ingredient key={item.id} image={item.image} price={item.price} name={item.name} />)}
+                        {sauces.map(item => <Ingredient key={item._id} image={item.image} price={item.price} name={item.name} />)}
                     </div>
                     <h2 id="main">Начинки</h2>
                     <div className={Styles.ingredientsContainer}>
-                        {fillings.map(item => <Ingredient key={item.id} image={item.image} price={item.price} name={item.name} />)}
+                        {fillings.map(item => <Ingredient key={item._id} image={item.image} price={item.price} name={item.name} />)}
                     </div>
                 </div>
             </section>

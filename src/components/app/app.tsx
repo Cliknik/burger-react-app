@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {StrictMode} from 'react';
 import appStyles from './app.module.css'
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
@@ -9,13 +9,15 @@ import data from '../../utils/data'
 
 function App() {
   return (
-    <div className={appStyles.App}>
-      <AppHeader />
-        <main className={appStyles.burgerContainer}>
-          <BurgerIngredients items={data}/>
-          <BurgerConstructor items={data}/>
-        </main>
-    </div>
+      <StrictMode>
+        <div className={appStyles.App}>
+          <AppHeader />
+            <main className={appStyles.burgerContainer}>
+              <BurgerIngredients items={data}/>
+              <BurgerConstructor items={data}/>
+            </main>
+        </div>
+      </StrictMode>
   );
 }
 
