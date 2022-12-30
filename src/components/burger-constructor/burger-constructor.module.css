@@ -1,0 +1,48 @@
+.container {
+    composes: section from '../burger-ingredients/burger-ingredients.module.css';
+    box-sizing: border-box;
+    padding: 100px 0 16px 0;
+    gap: 40px;
+    align-items: flex-end;
+}
+
+.order {
+    display: flex;
+    gap: 40px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.scrollArea {
+    composes: scrollSection from '../burger-ingredients/burger-ingredients.module.css';
+    max-height: calc(496px - 32px);
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+}
+
+.total {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.ingredientElement {
+    margin-right: 16px;
+    background-color: #1C1C21;
+}
+
+.ingredientContainer {
+    composes: total;
+    gap: 8px;
+}
+
+.bun {
+    margin-left: 32px;
+    background-color: #1C1C21;
+}
+
+.currencyIcon {
+    transform: scale(1.5);
+}
+
