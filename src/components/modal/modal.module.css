@@ -1,0 +1,16 @@
+.content {
+    margin: auto;
+    display: flex;
+    box-sizing: border-box;
+    min-width: 720px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    min-height: 20px;
+}
+
+.close-icon {
+    position: absolute;
+    top: -60px;
+    right: -40px;
+}

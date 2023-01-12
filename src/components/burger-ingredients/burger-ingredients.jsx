@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -8,12 +8,14 @@ import Styles from './burger-ingredients.module.css';
 
 import Ingredient from "../ingredient/ingredient";
 
-function BurgerIngredients(props) {
-        const [current, setCurrent] = React.useState('one');
+const BurgerIngredients = (props) => {
+        const [current, setCurrent] = useState('one');
 
-        const buns = props.items.filter(item => item.type === "bun");
-        const sauces = props.items.filter(item => item.type === "sauce");
-        const fillings = props.items.filter(item => item.type === "main");
+        const buns = props.items.filter(item => item['type'] === "bun");
+        const sauces = props.items.filter(item => item['type'] === "sauce");
+        const fillings = props.items.filter(item => item['type'] === "main");
+
+
 
         return (
             <section className={Styles.section}>
@@ -32,15 +34,15 @@ function BurgerIngredients(props) {
                 <div className={Styles.scrollSection}>
                     <h2 className="" id="buns">Булки</h2>
                     <div className={Styles.ingredientsContainer}>
-                        {buns.map(item => <Ingredient key={item._id} image={item.image} price={item.price} name={item.name} />)}
+                        {buns.map(item => <Ingredient key={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
                     </div>
                     <h2 id="sauces">Соусы</h2>
                     <div className={Styles.ingredientsContainer}>
-                        {sauces.map(item => <Ingredient key={item._id} image={item.image} price={item.price} name={item.name} />)}
+                        {sauces.map(item => <Ingredient key={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
                     </div>
                     <h2 id="main">Начинки</h2>
                     <div className={Styles.ingredientsContainer}>
-                        {fillings.map(item => <Ingredient key={item._id} image={item.image} price={item.price} name={item.name} />)}
+                        {fillings.map(item => <Ingredient key={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
                     </div>
                 </div>
             </section>
