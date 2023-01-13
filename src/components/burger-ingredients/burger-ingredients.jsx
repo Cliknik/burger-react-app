@@ -15,8 +15,6 @@ const BurgerIngredients = (props) => {
         const sauces = props.items.filter(item => item['type'] === "sauce");
         const fillings = props.items.filter(item => item['type'] === "main");
 
-
-
         return (
             <section className={Styles.section}>
                 <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
@@ -34,7 +32,7 @@ const BurgerIngredients = (props) => {
                 <div className={Styles.scrollSection}>
                     <h2 className="" id="buns">Булки</h2>
                     <div className={Styles.ingredientsContainer}>
-                        {buns.map(item => <Ingredient key={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
+                        {buns.map(item => <Ingredient key={item['_id']} image={item['image']} price={item['price']} name={item['name']} onClick={props.toggleModalHandler} modalOpened={props.modalOpened}/>)}
                     </div>
                     <h2 id="sauces">Соусы</h2>
                     <div className={Styles.ingredientsContainer}>

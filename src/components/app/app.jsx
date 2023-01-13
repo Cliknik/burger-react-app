@@ -3,13 +3,19 @@ import appStyles from './app.module.css'
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import ModalLayout from "../modal-layout/modal-layout";
 
 
 const url = 'https://norma.nomoreparties.space/api/ingredients'
 
-
 function App() {
     const [ingredients, setIngredients] = useState();
+    const [modalOpened, setModalOpened] =useState(true);
+
+    function toggleModalHandler() {
+        console.log(modalOpened);
+        setModalOpened(!modalOpened);
+    }
 
     useEffect(() => {
         const getProductData = () => {
@@ -33,11 +39,12 @@ function App() {
             <main className={appStyles.burgerContainer}>{
                 ingredients &&
                 <>
-                    <BurgerIngredients items={ingredients}/>
+                    <BurgerIngredients items={ingredients} toggleModalHandler={toggleModalHandler} modalOpened={modalOpened}/>
                     <BurgerConstructor items={ingredients}/>
                 </>
             }
             </main>
+            <ModalLayout modalOpened={modalOpened} toggleModalHandler={toggleModalHandler}/>
         </div>
       </StrictMode>
   );
