@@ -13,8 +13,13 @@ function App() {
     const [modalOpened, setModalOpened] =useState(true);
 
     function toggleModalHandler() {
-        console.log(modalOpened);
         setModalOpened(!modalOpened);
+    }
+
+    function escButtonHandler(event){
+        if (event.key === 'Escape') {
+            setModalOpened(false)
+        }
     }
 
     useEffect(() => {
@@ -40,11 +45,11 @@ function App() {
                 ingredients &&
                 <>
                     <BurgerIngredients items={ingredients} toggleModalHandler={toggleModalHandler} modalOpened={modalOpened}/>
-                    <BurgerConstructor items={ingredients}/>
+                    <BurgerConstructor items={ingredients} toggleModalHandler={toggleModalHandler} modalOpened={modalOpened}/>
                 </>
             }
             </main>
-            <ModalLayout modalOpened={modalOpened} toggleModalHandler={toggleModalHandler}/>
+            <ModalLayout modalOpened={modalOpened} toggleModalHandler={toggleModalHandler} escButtonHandler={escButtonHandler}/>
         </div>
       </StrictMode>
   );

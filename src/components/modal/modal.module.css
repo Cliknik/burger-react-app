@@ -24,6 +24,10 @@
     align-items: center;
 }
 
+.closeIcon:hover {
+    cursor: pointer;
+}
+
 .wrapper {
     display: flex;
     height: 100vh;

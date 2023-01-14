@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useMemo} from "react";
 import PropTypes from "prop-types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -11,9 +11,9 @@ import Ingredient from "../ingredient/ingredient";
 const BurgerIngredients = (props) => {
         const [current, setCurrent] = useState('one');
 
-        const buns = props.items.filter(item => item['type'] === "bun");
-        const sauces = props.items.filter(item => item['type'] === "sauce");
-        const fillings = props.items.filter(item => item['type'] === "main");
+        const buns = useMemo(() => props.items.filter(item => item['type'] === "bun"),[]);
+        const sauces = useMemo(() => props.items.filter(item => item['type'] === "sauce"),[]);
+        const fillings = useMemo(() => props.items.filter(item => item['type'] === "main"),[]);
 
         return (
             <section className={Styles.section}>
@@ -36,11 +36,11 @@ const BurgerIngredients = (props) => {
                     </div>
                     <h2 id="sauces">Соусы</h2>
                     <div className={Styles.ingredientsContainer}>
-                        {sauces.map(item => <Ingredient key={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
+                        {sauces.map(item => <Ingredient key={item['_id']} image={item['image']} price={item['price']} name={item['name']} onClick={props.toggleModalHandler} modalOpened={props.modalOpened}/>)}
                     </div>
                     <h2 id="main">Начинки</h2>
                     <div className={Styles.ingredientsContainer}>
-                        {fillings.map(item => <Ingredient key={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
+                        {fillings.map(item => <Ingredient key={item['_id']} image={item['image']} price={item['price']} name={item['name']} onClick={props.toggleModalHandler} modalOpened={props.modalOpened}/>)}
                     </div>
                 </div>
             </section>
