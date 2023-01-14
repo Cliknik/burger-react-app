@@ -7,6 +7,7 @@ import DataPropTypes from "../../utils/data-prop-types"
 import styles from './burger-constructor.module.css'
 
 function BurgerConstructor(props) {
+    const {getModalType, openModal} = props;
     return(
         <section className={styles.container}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -52,7 +53,7 @@ function BurgerConstructor(props) {
                     <p className="text text_type_digits-medium">555</p>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button htmlType="button" type="primary" size="large" onClick={props.toggleModalHandler} id={'order-button'}>Оформить заказ</Button>
+                <Button htmlType="button" type="primary" size="large" onClick={(evt) => {getModalType(evt); openModal()}} id={'order-button'}>Оформить заказ</Button>
             </div>
         </section>
     )

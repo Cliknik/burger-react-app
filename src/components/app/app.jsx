@@ -25,12 +25,32 @@ function App() {
             .catch(e => console.log(`Что-то пошло не так. ${e}`))
     }
 
+    function openModal(){
+        setModalOpened(true);
+    }
+
+    function closeModal(){
+        setModalOpened(false);
+    }
+
+    function getModalType(evt){
+        if (evt.currentTarget.className.includes('ingredient')) {
+            setModalContent('ingredient');
+        }
+        else {
+            setModalContent('order');
+        }
+    }
+
+    function getClickedIngredientId(evt) {
+        setIngredientId(evt.currentTarget.id)
+    }
 
     function toggleModalHandler(evt) {
         setModalOpened(!modalOpened);
-        if (evt.current.target.className.includes('ingredient')) {
+        if (evt.currentTarget.className.includes('ingredient')) {
             setModalContent('ingredient');
-            // setIngredientId(evt.currentTarget.id)
+            setIngredientId(evt.currentTarget.id)
         }
         else {
             setModalContent('order')
@@ -39,7 +59,7 @@ function App() {
 
     function escButtonHandler(event){
         if (event.key === 'Escape') {
-            setModalOpened(false)
+            closeModal();
         }
     }
 
@@ -54,12 +74,12 @@ function App() {
             <main className={appStyles.burgerContainer}>{
                 ingredients &&
                 <>
-                    <BurgerIngredients items={ingredients} toggleModalHandler={toggleModalHandler} modalOpened={modalOpened}/>
-                    <BurgerConstructor items={ingredients} toggleModalHandler={toggleModalHandler} modalOpened={modalOpened}/>
+                    <BurgerIngredients getClickedIngredientId={getClickedIngredientId} getModalType={getModalType} items={ingredients} openModal={openModal} modalOpened={modalOpened}/>
+                    <BurgerConstructor getModalType={getModalType} items={ingredients} openModal={openModal} modalOpened={modalOpened}/>
                 </>
             }
             </main>
-            <ModalLayout ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} toggleModalHandler={toggleModalHandler} escButtonHandler={escButtonHandler}/>
+            <ModalLayout ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal} escButtonHandler={escButtonHandler}/>
         </div>
       </StrictMode>
   );

@@ -7,7 +7,7 @@ import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 
-const ModalLayout = ({modalOpened, toggleModalHandler, escButtonHandler, modalContent, ingredients, ingredientId}) => {
+const ModalLayout = ({modalOpened, openModal, closeModal, escButtonHandler, modalContent, ingredients, ingredientId, getModalType, getClickedIngredientId, getClickedElementId}) => {
 
     const modalType = modalContent === 'ingredient' ? <IngredientDetails ingredientId={ingredientId} ingredients={ingredients}/> : <OrderDetails/>
 
@@ -15,8 +15,8 @@ const ModalLayout = ({modalOpened, toggleModalHandler, escButtonHandler, modalCo
 
     return ReactDOM.createPortal(
         modalOpened &&
-        <div className={styles.wrapper} onClick={toggleModalHandler}>
-            <Modal ingredients={ingredients} modalOpened={modalOpened} toggleModalHandler={toggleModalHandler} escButtonHandler={escButtonHandler}>
+        <div className={styles.wrapper} onClick={closeModal}>
+            <Modal getClickedIngredientId={getClickedIngredientId} getModalType={getModalType} ingredients={ingredients} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal} escButtonHandler={escButtonHandler}>
                 {modalType}
             </Modal>
         </div>,
