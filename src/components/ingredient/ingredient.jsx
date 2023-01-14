@@ -6,7 +6,7 @@ import {CurrencyIcon, Counter} from "@ya.praktikum/react-developer-burger-ui-com
 import styles from './ingredient.module.css'
 
 function Ingredient(props) {
-    console.log(props.modalOpened)
+
     return (
         <div className={styles.ingredientContainer} onClick={props.toggleModalHandler}>
             <Counter count={1} extraClass="m-1" size="default" />

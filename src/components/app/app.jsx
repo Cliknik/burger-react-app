@@ -10,7 +10,7 @@ const url = 'https://norma.nomoreparties.space/api/ingredients'
 
 function App() {
     const [ingredients, setIngredients] = useState();
-    const [modalOpened, setModalOpened] =useState(true);
+    const [modalOpened, setModalOpened] =useState(false);
 
     function toggleModalHandler() {
         setModalOpened(!modalOpened);
