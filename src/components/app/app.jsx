@@ -9,11 +9,32 @@ import ModalLayout from "../modal-layout/modal-layout";
 const url = 'https://norma.nomoreparties.space/api/ingredients'
 
 function App() {
-    const [ingredients, setIngredients] = useState();
-    const [modalOpened, setModalOpened] =useState(false);
+    const [ingredients, setIngredients] = useState(null);
+    const [modalOpened, setModalOpened] = useState(false);
+    const [modalContent, setModalContent] = useState(null);
+    const [ingredientId, setIngredientId] = useState(null);
 
-    function toggleModalHandler() {
+    const getProductData = () => {
+        fetch(url)
+            .then((res) => {
+                return res.json();
+            })
+            .then(dataIng => {
+                setIngredients(dataIng.data);
+            })
+            .catch(e => console.log(`Что-то пошло не так. ${e}`))
+    }
+
+
+    function toggleModalHandler(evt) {
         setModalOpened(!modalOpened);
+        if (evt.current.target.className.includes('ingredient')) {
+            setModalContent('ingredient');
+            // setIngredientId(evt.currentTarget.id)
+        }
+        else {
+            setModalContent('order')
+        }
     }
 
     function escButtonHandler(event){
@@ -23,17 +44,6 @@ function App() {
     }
 
     useEffect(() => {
-        const getProductData = () => {
-            fetch(url)
-                .then((res) => {
-                    return res.json();
-                })
-                .then(dataIng => {
-                    setIngredients(dataIng.data);
-                })
-                .catch(e => console.log(`Что-то пошло не так. ${e}`))
-        }
-
         getProductData();
     }, [])
 
@@ -49,7 +59,7 @@ function App() {
                 </>
             }
             </main>
-            <ModalLayout modalOpened={modalOpened} toggleModalHandler={toggleModalHandler} escButtonHandler={escButtonHandler}/>
+            <ModalLayout ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} toggleModalHandler={toggleModalHandler} escButtonHandler={escButtonHandler}/>
         </div>
       </StrictMode>
   );

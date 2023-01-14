@@ -52,7 +52,7 @@ function BurgerConstructor(props) {
                     <p className="text text_type_digits-medium">555</p>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button htmlType="button" type="primary" size="large" onClick={props.toggleModalHandler}>Оформить заказ</Button>
+                <Button htmlType="button" type="primary" size="large" onClick={props.toggleModalHandler} id={'order-button'}>Оформить заказ</Button>
             </div>
         </section>
     )
