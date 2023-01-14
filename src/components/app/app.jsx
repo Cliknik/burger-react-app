@@ -11,7 +11,7 @@ const url = 'https://norma.nomoreparties.space/api/ingredients'
 function App() {
     const [ingredients, setIngredients] = useState(null);
     const [modalOpened, setModalOpened] = useState(false);
-    const [modalType, setModalType] = useState(null);
+    const [modalContent, setModalContent] = useState(null);
     const [ingredientId, setIngredientId] = useState(null);
 
     const getProductData = () => {
@@ -35,10 +35,10 @@ function App() {
 
     function getModalType(evt){
         if (evt.currentTarget.className.includes('ingredient')) {
-            setModalType('ingredient');
+            setModalContent('ingredient');
         }
         else {
-            setModalType('order');
+            setModalContent('order');
         }
     }
 
@@ -68,7 +68,7 @@ function App() {
                 </>
             }
             </main>
-            <ModalLayout ingredientId={ingredientId} ingredients={ingredients} modalType={modalType} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal} escButtonHandler={escButtonHandler}/>
+            <ModalLayout ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal} escButtonHandler={escButtonHandler}/>
         </div>
       </StrictMode>
   );

@@ -1,6 +1,10 @@
-import styles from './ingredient-details.module.css'
+import DataPropTypes from '../../utils/data-prop-types'
 
-function IngredientDetails({ingredients, ingredientId}){
+import styles from './ingredient-details.module.css'
+import PropTypes from "prop-types";
+
+function IngredientDetails(props){
+    const {ingredients, ingredientId} = props;
 
     const ingredient = ingredients.filter(item => item._id === ingredientId);
 
@@ -31,6 +35,10 @@ function IngredientDetails({ingredients, ingredientId}){
             </div>
         </>
     )
+}
+
+IngredientDetails.propTypes = {
+    ingredients: PropTypes.arrayOf(DataPropTypes).isRequired
 }
 
 export default IngredientDetails;
