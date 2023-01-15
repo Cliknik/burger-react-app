@@ -4,9 +4,8 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import ModalLayout from "../modal-layout/modal-layout";
-
-
-const url = 'https://norma.nomoreparties.space/api/ingredients'
+import {url} from '../../utils/constants'
+import {getDataFromServer} from "../../utils/get-data-from-server";
 
 function App() {
     const [ingredients, setIngredients] = useState(null);
@@ -15,10 +14,7 @@ function App() {
     const [ingredientId, setIngredientId] = useState(null);
 
     const getProductData = () => {
-        fetch(url)
-            .then((res) => {
-                return res.json();
-            })
+        getDataFromServer(url)
             .then(dataIng => {
                 setIngredients(dataIng.data);
             })
