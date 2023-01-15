@@ -22,6 +22,8 @@ const ModalLayout = ({modalOpened, openModal, closeModal, modalContent, ingredie
         case 'order':
             modalType = <OrderDetails/>
             break
+        default :
+            console.log('Что-то не так с передачей типа модального окна ')
     }
 
     const modalRoot = document.getElementById('react-modals');
