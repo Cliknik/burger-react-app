@@ -42,12 +42,6 @@ function App() {
         setIngredientId(evt.currentTarget.id)
     }
 
-    function escButtonHandler(event){
-        if (event.key === 'Escape') {
-            closeModal();
-        }
-    }
-
     useEffect(() => {
         getProductData();
     }, [])
@@ -63,8 +57,10 @@ function App() {
                     <BurgerConstructor getModalType={getModalType} items={ingredients} openModal={openModal} modalOpened={modalOpened}/>
                 </>
             }
-            </main>
-            <ModalLayout ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal} escButtonHandler={escButtonHandler}/>
+            </main>{
+            ingredients &&
+            <ModalLayout ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal}/>
+        }
         </div>
       </StrictMode>
   );

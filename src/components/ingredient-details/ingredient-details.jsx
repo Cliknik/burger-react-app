@@ -3,33 +3,30 @@ import DataPropTypes from '../../utils/data-prop-types'
 import styles from './ingredient-details.module.css'
 import PropTypes from "prop-types";
 
-function IngredientDetails(props){
-    const {ingredients, ingredientId} = props;
-
-    const ingredient = ingredients.filter(item => item._id === ingredientId);
+function IngredientDetails({actualIngredient}){
 
     return(
         <>
             <h2 className={`mt-10 text text_type_main-large ${styles.title}`}>Детали Ингридиента</h2>
             <div className={styles.contentContainer}>
-                <img className={`mb-4`} alt={ingredient[0].name} src={ingredient[0].image_large}/>
-                <h3 className={`mb-8 text text_type_main-medium`}>{ingredient[0].name}</h3>
+                <img className={`mb-4`} alt={actualIngredient[0].name} src={actualIngredient[0].image_large}/>
+                <h3 className={`mb-8 text text_type_main-medium`}>{actualIngredient[0].name}</h3>
                 <ul className={styles.energyWorth}>
                     <li className={styles.energyElement}>
                         <p className={`text text_type_main-default text_color_inactive ${styles.energyName}`}>Каллории, ккал</p>
-                        <p className={`text text_type_digits-default text_color_inactive ${styles.energyName}`}>{ingredient[0].calories}</p>
+                        <p className={`text text_type_digits-default text_color_inactive ${styles.energyName}`}>{actualIngredient[0].calories}</p>
                     </li>
                     <li className={styles.energyElement}>
                         <p className={`text text_type_main-default text_color_inactive ${styles.energyName}`}>Белки, г</p>
-                        <p className={`text text_type_digits-default text_color_inactive ${styles.energyName}`}>{ingredient[0].proteins}</p>
+                        <p className={`text text_type_digits-default text_color_inactive ${styles.energyName}`}>{actualIngredient[0].proteins}</p>
                     </li>
                     <li className={styles.energyElement}>
                         <p className={`text text_type_main-default text_color_inactive ${styles.energyName}`}>Жиры, г</p>
-                        <p className={`text text_type_digits-default text_color_inactive ${styles.energyName}`}>{ingredient[0].fat}</p>
+                        <p className={`text text_type_digits-default text_color_inactive ${styles.energyName}`}>{actualIngredient[0].fat}</p>
                     </li>
                     <li className={styles.energyElement}>
                         <p className={`text text_type_main-default text_color_inactive ${styles.energyName}`}>Углеводы, г</p>
-                        <p className={`text text_type_digits-default text_color_inactive ${styles.energyName}`}>{ingredient[0].carbohydrates}</p>
+                        <p className={`text text_type_digits-default text_color_inactive ${styles.energyName}`}>{actualIngredient[0].carbohydrates}</p>
                     </li>
                 </ul>
             </div>
@@ -38,7 +35,7 @@ function IngredientDetails(props){
 }
 
 IngredientDetails.propTypes = {
-    ingredients: PropTypes.arrayOf(DataPropTypes).isRequired
+    actualIngredient: PropTypes.arrayOf(DataPropTypes).isRequired
 }
 
 export default IngredientDetails;

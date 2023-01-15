@@ -1,9 +1,11 @@
 import React, {useEffect} from "react";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 import styles from './modal.module.css'
 
-export default function Modal({closeModal, modalOpened, escButtonHandler, children}) {
+export default function Modal(props) {
+    const {closeModal, modalOpened, children} = props;
 
     useEffect(() => {
         document.addEventListener('keydown', escButtonHandler)
@@ -13,6 +15,12 @@ export default function Modal({closeModal, modalOpened, escButtonHandler, childr
         }
     }, [modalOpened])
 
+    function escButtonHandler(event){
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    }
+
     return (
             <div className={styles.modal} onClick={e => e.stopPropagation()}>
                 <div className={styles.closeIcon}>
@@ -21,4 +29,8 @@ export default function Modal({closeModal, modalOpened, escButtonHandler, childr
                 {children}
             </div>
     )
+}
+
+Modal.propTypes = {
+    children: PropTypes.element
 }
