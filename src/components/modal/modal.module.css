@@ -1,0 +1,30 @@
+.modal {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-width: 720px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    min-height: 20px;
+    padding-left: 40px;
+    background-color: #1C1C21;
+    border-radius: 40px;
+    z-index: 3;
+}
+
+.closeIcon {
+    position: absolute;
+    top: 50px;
+    right: 40px;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeIcon:hover {
+    cursor: pointer;
+}
