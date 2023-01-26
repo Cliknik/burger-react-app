@@ -41,8 +41,4 @@ const ModalLayout = ({modalOpened, openModal, closeModal, modalContent, ingredie
     );
 }
 
-ModalLayout.propTypes = {
-    ingredients: PropTypes.arrayOf(DataPropTypes).isRequired,
-}
-
 export default ModalLayout;

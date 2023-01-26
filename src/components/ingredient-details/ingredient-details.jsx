@@ -1,4 +1,5 @@
 import DataPropTypes from '../../utils/data-prop-types'
+import {IngredientsContext} from '../../services/ingredientsContext'
 
 import styles from './ingredient-details.module.css'
 import PropTypes from "prop-types";
