@@ -7,33 +7,15 @@ import ModalLayout from "../modal-layout/modal-layout";
 import {url} from '../../utils/constants';
 import {getDataFromServer} from "../../utils/work-with-api";
 import {IngredientsContext} from '../../services/ingredientsContext'
-import {ConstructorContext} from '../../services/constructorContext'
+import {OrderNumberContext, OrderNameContext} from "../../services/orderContext";
 
 function App() {
     const [ingredients, setIngredients] = useState(null);
-    // const [constructorData, setConstructorData] = useState({
-    //     bun: {},
-    //     fillings: []
-    // });
     const [modalOpened, setModalOpened] = useState(false);
     const [modalContent, setModalContent] = useState(null);
     const [ingredientId, setIngredientId] = useState(null);
-
-    // const addIngredient = (ingredient) => {
-    //     if (ingredient['type'] === 'bun') {
-    //         setConstructorData({
-    //             bun: ingredient
-    //         })
-    //     }
-    //     else {
-    //         setConstructorData({
-    //             ...constructorData,
-    //             fillings: [...constructorData.fillings , ingredient]
-    //         })
-    //     }
-    // }
-
-
+    const [orderNumber, setOrderNumber] = useState(0);
+    const [orderName, setOrderName] = useState('');
 
     const getProductData = () => {
         getDataFromServer(`${url}ingredients`)
@@ -49,6 +31,7 @@ function App() {
 
     function closeModal(){
         setModalOpened(false);
+        setOrderNumber(null);
     }
 
     function getModalType(evt){
@@ -74,14 +57,17 @@ function App() {
           <AppHeader />{
             ingredients &&
             <IngredientsContext.Provider value={{ingredients}}>
-                    <main className={appStyles.burgerContainer}>
-                        <>
-                            <BurgerIngredients getClickedIngredientId={getClickedIngredientId} getModalType={getModalType} openModal={openModal} modalOpened={modalOpened}/>
-                            <BurgerConstructor getModalType={getModalType} items={ingredients} openModal={openModal} modalOpened={modalOpened}/>
-                        </>
-                    </main>
-                    <ModalLayout ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal}/>
-
+                <OrderNumberContext.Provider value={{orderNumber, setOrderNumber}}>
+                    <OrderNameContext.Provider value={{orderName, setOrderName}}>
+                        <main className={appStyles.burgerContainer}>
+                            <>
+                                <BurgerIngredients getClickedIngredientId={getClickedIngredientId} getModalType={getModalType} openModal={openModal} modalOpened={modalOpened}/>
+                                <BurgerConstructor getModalType={getModalType} items={ingredients} openModal={openModal} modalOpened={modalOpened}/>
+                            </>
+                        </main>
+                        <ModalLayout ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal}/>
+                    </OrderNameContext.Provider>
+                </OrderNumberContext.Provider>
             </IngredientsContext.Provider>
         }
         </div>

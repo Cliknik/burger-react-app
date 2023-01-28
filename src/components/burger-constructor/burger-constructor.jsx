@@ -4,6 +4,10 @@ import {ConstructorElement, Button, CurrencyIcon, DragIcon} from "@ya.praktikum/
 
 import DataPropTypes from "../../utils/data-prop-types"
 import {IngredientsContext} from '../../services/ingredientsContext'
+import {OrderNameContext, OrderNumberContext} from "../../services/orderContext";
+
+import {sendOrderDetails} from "../../utils/work-with-api";
+import {url} from  '../../utils/constants'
 
 import styles from './burger-constructor.module.css'
 
@@ -12,9 +16,10 @@ function BurgerConstructor(props) {
     const {getModalType, openModal} = props;
 
     const [ orderTotal, setOrderTotal ] = useState(0);
+    const {setOrderName}= useContext(OrderNameContext);
+    const {setOrderNumber}= useContext(OrderNumberContext);
 
     const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients])
-
     const fillings = useMemo(() => ingredients.filter(item => item.type !== 'bun'), [ingredients])
 
     function calculateOrderTotal(){
@@ -22,12 +27,27 @@ function BurgerConstructor(props) {
             return item.price + initValue
         }, 0))
     }
+    function collectOrderedId(){
+        return [].concat(buns.map((item) => {
+            return item._id
+        }),
+            fillings.map((item) => {
+                return item._id
+            }))
+    }
+
+    function getOrderNumber(){
+        sendOrderDetails(`${url}orders`, collectOrderedId())
+            .then((res) => {
+                setOrderName(res.name);
+                setOrderNumber(res.order.number)
+            })
+            .catch(err => console.log(`Ошибка отправки запроса ${err}`))
+    }
 
     useEffect(() => {
         setOrderTotal(calculateOrderTotal)
     },[ingredients])
-
-
 
     return(
         <section className={styles.container}>
@@ -74,7 +94,7 @@ function BurgerConstructor(props) {
                     <p className="text text_type_digits-medium">{orderTotal}</p>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button htmlType="button" type="primary" size="large" onClick={(evt) => {getModalType(evt); openModal()}} id={'order-button'}>Оформить заказ</Button>
+                <Button htmlType="button" type="primary" size="large" onClick={(evt) => {getOrderNumber(); getModalType(evt); openModal()}} id={'order-button'}>Оформить заказ</Button>
             </div>
         </section>
     )

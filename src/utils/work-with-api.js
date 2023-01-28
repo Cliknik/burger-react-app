@@ -9,15 +9,15 @@ export function getDataFromServer(url) {
         })
 }
 
-export function sendOrderDetails(url, {details}) {
+export function sendOrderDetails(url, details) {
     return fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(details)
+        body: JSON.stringify({'ingredients': details})
     })
         .then((res) => {
-            return getResponseData(res)
+            return res.json()
         })
 }
