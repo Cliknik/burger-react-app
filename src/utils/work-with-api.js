@@ -1,5 +1,5 @@
 function getResponseData(res){
-    return res.ok ? res.json() : res.json.then((err) => Promise.reject(err));
+    return res.ok ? res.json() : res.json.then((err) => Promise.reject(err))
 }
 
 export function getDataFromServer(url) {
@@ -18,6 +18,6 @@ export function sendOrderDetails(url, details) {
         body: JSON.stringify({'ingredients': details})
     })
         .then((res) => {
-            return res.json()
+            return getResponseData(res);
         })
 }

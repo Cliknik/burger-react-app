@@ -4,29 +4,20 @@ import {ConstructorElement, Button, CurrencyIcon, DragIcon} from "@ya.praktikum/
 
 import DataPropTypes from "../../utils/data-prop-types"
 import {IngredientsContext} from '../../services/ingredientsContext'
-import {OrderNameContext, OrderNumberContext} from "../../services/orderContext";
 
 import {sendOrderDetails} from "../../utils/work-with-api";
-import {url} from  '../../utils/constants'
+import {url, bunType} from  '../../utils/constants'
 
 import styles from './burger-constructor.module.css'
 
+
 function BurgerConstructor(props) {
     const {ingredients} = useContext(IngredientsContext);
-    const {getModalType, openModal} = props;
+    const {getModalType, openModal, setOrderNumber} = props;
 
-    const [ orderTotal, setOrderTotal ] = useState(0);
-    const {setOrderName}= useContext(OrderNameContext);
-    const {setOrderNumber}= useContext(OrderNumberContext);
+    const buns = useMemo(() => ingredients.filter(item => item.type === bunType), [ingredients])
+    const fillings = useMemo(() => ingredients.filter(item => item.type !== bunType), [ingredients])
 
-    const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients])
-    const fillings = useMemo(() => ingredients.filter(item => item.type !== 'bun'), [ingredients])
-
-    function calculateOrderTotal(){
-        return  ((buns[0].price * 2) + fillings.reduce((initValue, item) => {
-            return item.price + initValue
-        }, 0))
-    }
     function collectOrderedId(){
         return [].concat(buns.map((item) => {
             return item._id
@@ -39,14 +30,15 @@ function BurgerConstructor(props) {
     function getOrderNumber(){
         sendOrderDetails(`${url}orders`, collectOrderedId())
             .then((res) => {
-                setOrderName(res.name);
                 setOrderNumber(res.order.number)
             })
             .catch(err => console.log(`Ошибка отправки запроса ${err}`))
     }
 
-    useEffect(() => {
-        setOrderTotal(calculateOrderTotal)
+    const orderTotal = useMemo(() => {
+        return  ((buns[0].price * 2) + fillings.reduce((initValue, item) => {
+            return item.price + initValue
+        }, 0))
     },[ingredients])
 
     return(

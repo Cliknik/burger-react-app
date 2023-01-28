@@ -7,15 +7,17 @@ import DataPropTypes from "../../utils/data-prop-types"
 
 import Styles from './burger-ingredients.module.css';
 
+import {bunType, sauceType, mainType} from "../../utils/constants";
+
 import Ingredient from "../ingredient/ingredient";
 
 const BurgerIngredients = (props) => {
     const {ingredients} = useContext(IngredientsContext)
     const [current, setCurrent] = useState('one');
 
-    const buns = useMemo(() => ingredients.filter(item => item['type'] === "bun"),[]);
-    const sauces = useMemo(() => ingredients.filter(item => item['type'] === "sauce"),[]);
-    const fillings = useMemo(() => ingredients.filter(item => item['type'] === "main"),[]);
+    const buns = useMemo(() => ingredients.filter(item => item['type'] === bunType),[]);
+    const sauces = useMemo(() => ingredients.filter(item => item['type'] === sauceType),[]);
+    const fillings = useMemo(() => ingredients.filter(item => item['type'] === mainType),[]);
 
     return (
         <section className={Styles.section}>

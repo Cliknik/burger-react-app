@@ -9,7 +9,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 
 
-const ModalLayout = ({modalOpened, openModal, closeModal, modalContent, ingredients, ingredientId, getModalType, getClickedIngredientId}) => {
+const ModalLayout = ({orderNumber, modalOpened, openModal, closeModal, modalContent, ingredients, ingredientId, getModalType, getClickedIngredientId}) => {
 
     const actualIngredient = useMemo(() => ingredients.filter(item => item._id === ingredientId), [ingredientId]);
 
@@ -20,7 +20,7 @@ const ModalLayout = ({modalOpened, openModal, closeModal, modalContent, ingredie
             modalType = <IngredientDetails actualIngredient={actualIngredient}/>
             break;
         case 'order':
-            modalType = <OrderDetails/>
+            modalType = <OrderDetails orderNumber={orderNumber}/>
             break
         default :
             console.log('Что-то не так с передачей типа модального окна ')

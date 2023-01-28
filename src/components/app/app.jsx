@@ -7,7 +7,6 @@ import ModalLayout from "../modal-layout/modal-layout";
 import {url} from '../../utils/constants';
 import {getDataFromServer} from "../../utils/work-with-api";
 import {IngredientsContext} from '../../services/ingredientsContext'
-import {OrderNumberContext, OrderNameContext} from "../../services/orderContext";
 
 function App() {
     const [ingredients, setIngredients] = useState(null);
@@ -15,7 +14,6 @@ function App() {
     const [modalContent, setModalContent] = useState(null);
     const [ingredientId, setIngredientId] = useState(null);
     const [orderNumber, setOrderNumber] = useState(0);
-    const [orderName, setOrderName] = useState('');
 
     const getProductData = () => {
         getDataFromServer(`${url}ingredients`)
@@ -57,17 +55,13 @@ function App() {
           <AppHeader />{
             ingredients &&
             <IngredientsContext.Provider value={{ingredients}}>
-                <OrderNumberContext.Provider value={{orderNumber, setOrderNumber}}>
-                    <OrderNameContext.Provider value={{orderName, setOrderName}}>
-                        <main className={appStyles.burgerContainer}>
-                            <>
-                                <BurgerIngredients getClickedIngredientId={getClickedIngredientId} getModalType={getModalType} openModal={openModal} modalOpened={modalOpened}/>
-                                <BurgerConstructor getModalType={getModalType} items={ingredients} openModal={openModal} modalOpened={modalOpened}/>
-                            </>
-                        </main>
-                        <ModalLayout ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal}/>
-                    </OrderNameContext.Provider>
-                </OrderNumberContext.Provider>
+                <main className={appStyles.burgerContainer}>
+                    <>
+                        <BurgerIngredients getClickedIngredientId={getClickedIngredientId} getModalType={getModalType} openModal={openModal} modalOpened={modalOpened}/>
+                        <BurgerConstructor setOrderNumber={setOrderNumber} getModalType={getModalType} items={ingredients} openModal={openModal} modalOpened={modalOpened}/>
+                    </>
+                </main>
+                <ModalLayout orderNumber={orderNumber} ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal}/>
             </IngredientsContext.Provider>
         }
         </div>

@@ -1,12 +1,8 @@
-import {useContext} from "react";
-
 import styles from './order-details.module.css'
 import icon from '../../images/icon-done.png'
 
-import {OrderNumberContext} from "../../services/orderContext";
-
-function OrderDetails(){
-    const {orderNumber} = useContext(OrderNumberContext);
+function OrderDetails(props){
+    const {orderNumber} = props;
 
     return(
         <div className={styles.contentContainer}>
