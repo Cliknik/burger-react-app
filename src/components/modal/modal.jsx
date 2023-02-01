@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useContext} from "react";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
@@ -6,6 +6,7 @@ import styles from './modal.module.css'
 
 export default function Modal(props) {
     const {closeModal, modalOpened, children} = props;
+
 
     useEffect(() => {
         document.addEventListener('keydown', escButtonHandler)
