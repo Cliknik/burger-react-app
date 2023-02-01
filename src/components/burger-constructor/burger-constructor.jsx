@@ -52,6 +52,7 @@ function BurgerConstructor(props) {
                     price={buns[0].price}
                     thumbnail={buns[0].image}
                     extraClass={styles.bun}
+                    key={buns[0]._id + 'top'}
                 />
                 : null}
                 <ul className={styles.scrollArea}>
@@ -77,6 +78,7 @@ function BurgerConstructor(props) {
                     price={buns[0].price}
                     thumbnail={buns[0].image}
                     extraClass={styles.bun}
+                    key={buns[0]._id + 'bottom'}
                 />
                 : null
                 }
