@@ -10,14 +10,15 @@ import Styles from './burger-ingredients.module.css';
 import {bunType, sauceType, mainType} from "../../utils/constants";
 
 import Ingredient from "../ingredient/ingredient";
+import {useSelector} from "react-redux";
 
 const BurgerIngredients = (props) => {
-    const {ingredients} = useContext(IngredientsContext)
+    const {items} = useSelector(store => store.ingredients)
     const [current, setCurrent] = useState('one');
 
-    const buns = useMemo(() => ingredients.filter(item => item['type'] === bunType),[]);
-    const sauces = useMemo(() => ingredients.filter(item => item['type'] === sauceType),[]);
-    const fillings = useMemo(() => ingredients.filter(item => item['type'] === mainType),[]);
+    const buns = useMemo(() => items.filter(item => item['type'] === bunType),[items]);
+    const sauces = useMemo(() => items.filter(item => item['type'] === sauceType),[items]);
+    const fillings = useMemo(() => items.filter(item => item['type'] === mainType),[items]);
 
     return (
         <section className={Styles.section}>
