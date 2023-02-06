@@ -1,1 +1,4 @@
-export function constructorDataReducer(){};
+export const ADD_BUN = 'ADD_BUN';
+export const ADD_MAIN_INGREDIENT = 'ADD_MAIN_INGREDIENT';
+export const REMOVE_BUN = 'REMOVE_BUN';
+export const REMOVE_MAIN_INGREDIENT = 'REMOVE_MAIN_INGREDIENT';

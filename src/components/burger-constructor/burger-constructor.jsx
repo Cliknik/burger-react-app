@@ -3,26 +3,34 @@ import PropTypes from "prop-types";
 import {ConstructorElement, Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import DataPropTypes from "../../utils/data-prop-types"
-import {IngredientsContext} from '../../services/ingredientsContext'
 
 import {sendOrderDetails} from "../../utils/work-with-api";
-import {url, bunType} from  '../../utils/constants'
+import {url} from  '../../utils/constants'
 
 import styles from './burger-constructor.module.css'
+import {useSelector, useDispatch} from "react-redux";
+import {REMOVE_MAIN_INGREDIENT} from "../../services/actions/constructorData";
 
 
 function BurgerConstructor(props) {
-    const {ingredients} = useContext(IngredientsContext);
     const {getModalType, openModal, setOrderNumber} = props;
 
-    const buns = useMemo(() => ingredients.filter(item => item.type === bunType), [ingredients])
-    const fillings = useMemo(() => ingredients.filter(item => item.type !== bunType), [ingredients])
+    const dispatch = useDispatch();
+
+    function removeIngredient(e){
+        dispatch({
+            type: REMOVE_MAIN_INGREDIENT,
+            main: e.target.id
+        })
+    }
+
+    const {bun, main} = useSelector(store => store.constructor)
 
     function collectOrderedId(){
-        return [].concat(buns.map((item) => {
+        return [].concat(bun.map((item) => {
             return item._id
         }),
-            fillings.map((item) => {
+            main.map((item) => {
                 return item._id
             }))
     }
@@ -36,27 +44,27 @@ function BurgerConstructor(props) {
     }
 
     const orderTotal = useMemo(() => {
-        return  ((buns[0].price * 2) + fillings.reduce((initValue, item) => {
+        return  ((bun[0].price * 2) + main.reduce((initValue, item) => {
             return item.price + initValue
         }, 0))
-    },[ingredients])
+    },[bun, main])
 
     return(
         <section className={styles.container}>
             <div style={{ display: 'flex', flexDirection: 'column'}}>
-                {buns ?
+                {bun ?
                     <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text={`${buns[0].name} (верх)`}
-                    price={buns[0].price}
-                    thumbnail={buns[0].image}
+                    text={`${bun[0].name} (верх)`}
+                    price={bun[0].price}
+                    thumbnail={bun[0].image}
                     extraClass={styles.bun}
-                    key={buns[0]._id + 'top'}
+                    key={bun[0]._id + 'top'}
                 />
                 : null}
                 <ul className={styles.scrollArea}>
-                    {fillings.map((item, index) => {
+                    {main.map((item, index) => {
                        return (<div className={styles.ingredientContainer}>
                             <DragIcon type="primary" />
                             <ConstructorElement
@@ -70,15 +78,15 @@ function BurgerConstructor(props) {
                         </div>)
                     })}
                 </ul>
-                {buns ?
+                {bun ?
                     <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text={`${buns[0].name} (низ)`}
-                    price={buns[0].price}
-                    thumbnail={buns[0].image}
+                    text={`${bun[0].name} (низ)`}
+                    price={bun[0].price}
+                    thumbnail={bun[0].image}
                     extraClass={styles.bun}
-                    key={buns[0]._id + 'bottom'}
+                    key={bun[0]._id + 'bottom'}
                 />
                 : null
                 }
@@ -94,8 +102,8 @@ function BurgerConstructor(props) {
     )
 }
 
-BurgerConstructor.propTypes = {
-    items: PropTypes.arrayOf(DataPropTypes).isRequired
-}
+// BurgerConstructor.propTypes = {
+//     items: PropTypes.arrayOf(DataPropTypes).isRequired
+// }
 
 export default BurgerConstructor;

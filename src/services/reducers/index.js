@@ -7,6 +7,6 @@ import {constructorDataReducer} from './constructorData'
 export const rootReducer = combineReducers({
     ingredients: ingredientsDataReducer,
     // constructor: constructorDataReducer,
-    // ingredient: currentIngredientReducer,
+    ingredient: currentIngredientReducer,
     // order: orderReducer
 })

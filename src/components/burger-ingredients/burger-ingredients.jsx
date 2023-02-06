@@ -12,7 +12,7 @@ import {bunType, sauceType, mainType} from "../../utils/constants";
 import Ingredient from "../ingredient/ingredient";
 import {useSelector} from "react-redux";
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = () => {
     const {items} = useSelector(store => store.ingredients)
     const [current, setCurrent] = useState('one');
 
@@ -37,15 +37,15 @@ const BurgerIngredients = (props) => {
             <div className={Styles.scrollSection}>
                 <h2 className="" id="buns">Булки</h2>
                 <div className={Styles.ingredientsContainer}>
-                    {buns.map(item => <Ingredient key={item['_id']} id={item['_id']} image={item['image']} price={item['price']} name={item['name']} getClickedIngredientId={props.getClickedIngredientId} getModalType={props.getModalType} openModal={props.openModal} modalOpened={props.modalOpened}/>)}
+                    {buns.map(item => <Ingredient data={item} key={item['_id']} id={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
                 </div>
                 <h2 id="sauces">Соусы</h2>
                 <div className={Styles.ingredientsContainer}>
-                    {sauces.map(item => <Ingredient key={item['_id']} id={item['_id']} image={item['image']} price={item['price']} name={item['name']} getClickedIngredientId={props.getClickedIngredientId} getModalType={props.getModalType} openModal={props.openModal} modalOpened={props.modalOpened}/>)}
+                    {sauces.map(item => <Ingredient data={item} key={item['_id']} id={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
                 </div>
                 <h2 id="main">Начинки</h2>
                 <div className={Styles.ingredientsContainer}>
-                    {fillings.map(item => <Ingredient key={item['_id']} id={item['_id']} image={item['image']} price={item['price']} name={item['name']} getClickedIngredientId={props.getClickedIngredientId} getModalType={props.getModalType} openModal={props.openModal} modalOpened={props.modalOpened}/>)}
+                    {fillings.map(item => <Ingredient data={item} key={item['_id']} id={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
                 </div>
             </div>
         </section>

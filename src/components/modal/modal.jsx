@@ -1,10 +1,15 @@
-import React, {useEffect, useContext} from "react";
+import React, {useEffect} from "react";
+import ReactDOM from "react-dom";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
 import styles from './modal.module.css'
+import ModalLayout from "../modal-layout/modal-layout";
+
+const modalRoot = document.getElementById('react-modals');
 
 export default function Modal(props) {
+
     const {closeModal, modalOpened, children} = props;
 
 
@@ -14,7 +19,7 @@ export default function Modal(props) {
         return () => {
             document.removeEventListener('keydown', escButtonHandler)
         }
-    }, [modalOpened])
+    }, [])
 
     function escButtonHandler(event){
         if (event.key === 'Escape') {
@@ -22,13 +27,16 @@ export default function Modal(props) {
         }
     }
 
-    return (
+    return ReactDOM.createPortal(
+        <>
             <div className={styles.modal} onClick={e => e.stopPropagation()}>
                 <div className={styles.closeIcon}>
                     <CloseIcon type="primary" onClick={closeModal}/>
                 </div>
                 {children}
             </div>
+            <ModalLayout closeModal={closeModal}/>
+        </>, modalRoot
     )
 }
 
