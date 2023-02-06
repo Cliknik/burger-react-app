@@ -1,6 +1,7 @@
 .modal {
-    margin: auto;
-    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
     flex-direction: column;
     box-sizing: border-box;
     min-width: 720px;

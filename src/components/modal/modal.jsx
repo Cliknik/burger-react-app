@@ -10,7 +10,7 @@ const modalRoot = document.getElementById('react-modals');
 
 export default function Modal(props) {
 
-    const {closeModal, modalOpened, children} = props;
+    const {closeModal, children} = props;
 
 
     useEffect(() => {

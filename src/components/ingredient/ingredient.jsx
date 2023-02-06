@@ -14,12 +14,12 @@ function Ingredient(props) {
     const {image, price, id, name, data } = props
     const dispatch = useDispatch();
 
-    const {modalOpened} = useSelector(store => store.ingredient)
+    const {modalOpened} = useSelector(store => store.currentIngredient.modalOpened)
 
     const openModal = (data) => {
         dispatch({
             type: SET_INGREDIENT_MODAL,
-            item: data
+            data: data
         })
     }
 
@@ -28,8 +28,6 @@ function Ingredient(props) {
             type: RESET_INGREDIENT_MODAL
         })
     }
-
-    console.log(modalOpened)
 
     return (
         <>

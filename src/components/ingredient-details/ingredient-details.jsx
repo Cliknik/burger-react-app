@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 
 function IngredientDetails(){
-    const {item} = useSelector(store => store.ingredient)
+    const {item} = useSelector(store => store.currentIngredient.item)
 
     return(
         <>
