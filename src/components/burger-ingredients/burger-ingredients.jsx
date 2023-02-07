@@ -1,7 +1,6 @@
 import React, {useState, useMemo, useContext} from "react";
 import PropTypes from "prop-types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import {IngredientsContext} from '../../services/ingredientsContext'
 
 import DataPropTypes from "../../utils/data-prop-types"
 
@@ -10,10 +9,13 @@ import Styles from './burger-ingredients.module.css';
 import {bunType, sauceType, mainType} from "../../utils/constants";
 
 import Ingredient from "../ingredient/ingredient";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredients = () => {
     const items = useSelector(store => store.ingredients.items)
+    const modalOpened = useSelector(store => store.currentIngredient.modalOpened)
     const [current, setCurrent] = useState('one');
 
     const buns = useMemo(() => items.filter(item => item['type'] === bunType),[items]);
@@ -21,6 +23,7 @@ const BurgerIngredients = () => {
     const fillings = useMemo(() => items.filter(item => item['type'] === mainType),[items]);
 
     return (
+        <>
         <section className={Styles.section}>
             <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
             <nav style={{ display: 'flex'}} className="mb-10">
@@ -49,6 +52,11 @@ const BurgerIngredients = () => {
                 </div>
             </div>
         </section>
+            {modalOpened &&
+                <Modal>
+                    <IngredientDetails />
+                </Modal>}
+    </>
     )
 }
 
