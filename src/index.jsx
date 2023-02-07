@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/app/app';
+import {MemoizedApp} from './components/app/app';
 import reportWebVitals from './reportWebVitals';
 import {rootReducer} from "./services/reducers/index";
 import {createStore, compose, applyMiddleware} from "redux";
@@ -21,7 +21,7 @@ const root = document.getElementById('root');
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <MemoizedApp />
     </Provider>,
     root
 );

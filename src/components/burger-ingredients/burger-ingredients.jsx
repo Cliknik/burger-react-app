@@ -13,7 +13,7 @@ import Ingredient from "../ingredient/ingredient";
 import {useSelector} from "react-redux";
 
 const BurgerIngredients = () => {
-    const {items} = useSelector(store => store.ingredients)
+    const items = useSelector(store => store.ingredients.items)
     const [current, setCurrent] = useState('one');
 
     const buns = useMemo(() => items.filter(item => item['type'] === bunType),[items]);

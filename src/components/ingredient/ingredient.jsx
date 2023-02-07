@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
+import {useState} from "react";
 
 import {CurrencyIcon, Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -8,20 +9,16 @@ import Modal from "../modal/modal";
 
 import styles from './ingredient.module.css'
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import {RESET_INGREDIENT_MODAL, SET_INGREDIENT_MODAL} from "../../services/actions/currentIngredient";
+import {RESET_INGREDIENT_MODAL, SET_INGREDIENT_MODAL, setIngredients} from "../../services/actions/currentIngredient";
 
 function Ingredient(props) {
-    const {image, price, id, name, data } = props
+    const {image, price, id, name, data} = props
     const dispatch = useDispatch();
+    const item = useSelector(store => store.currentIngredient.item)
 
-    const {modalOpened} = useSelector(store => store.currentIngredient.modalOpened)
-
-    const openModal = (data) => {
-        dispatch({
-            type: SET_INGREDIENT_MODAL,
-            data: data
-        })
-    }
+    // const openModal = (data) => {
+    //     dispatch(setIngredients(data))
+    // }
 
     function closeModal(){
         dispatch({
@@ -31,15 +28,15 @@ function Ingredient(props) {
 
     return (
         <>
-            <div className={styles.ingredientContainer} onClick={() => openModal(data)} id={id}>
+            <div className={styles.ingredientContainer} onClick={() => dispatch(setIngredients(data))} id={id}>
                 <Counter count={1} extraClass="m-1" size="default" />
                 <img src={image} alt="Картинка ингридиента"/>
                 <p className={ `text text_type_digits-default ${styles.name}`}>{price} <CurrencyIcon type={"primary"} /></p>
                 <p className={ `text text_type_main-small ${styles.name}`}>{name}</p>
             </div>
-            {modalOpened &&
+            {item &&
             <Modal closeModal={closeModal}>
-                <IngredientDetails />
+                <IngredientDetails item={item} />
             </Modal>}
         </>
     )

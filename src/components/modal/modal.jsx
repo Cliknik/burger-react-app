@@ -28,7 +28,7 @@ export default function Modal(props) {
     }
 
     return ReactDOM.createPortal(
-        <>
+        (<>
             <div className={styles.modal} onClick={e => e.stopPropagation()}>
                 <div className={styles.closeIcon}>
                     <CloseIcon type="primary" onClick={closeModal}/>
@@ -36,7 +36,8 @@ export default function Modal(props) {
                 {children}
             </div>
             <ModalLayout closeModal={closeModal}/>
-        </>, modalRoot
+        </>),
+        modalRoot
     )
 }
 

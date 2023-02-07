@@ -4,9 +4,7 @@ import styles from './ingredient-details.module.css'
 import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 
-function IngredientDetails(){
-    const {item} = useSelector(store => store.currentIngredient.item)
-
+function IngredientDetails({item}){
     return(
         <>
             <h2 className={`mt-10 text text_type_main-large ${styles.title}`}>Детали Ингридиента</h2>
