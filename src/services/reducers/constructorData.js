@@ -19,7 +19,10 @@ export const constructorDataReducer = (state = initialState, action) => {
                case ADD_MAIN_INGREDIENT: {
                        return {
                                ...state,
-                               main: [...state.main, action.item]
+                               main: [...state.main, {
+                                       ingredient: action.item,
+                                       id: /тут будет айди кастомный/
+                               }]
                        }
                }
                case REMOVE_MAIN_INGREDIENT: {
@@ -35,7 +38,7 @@ export const constructorDataReducer = (state = initialState, action) => {
                        }
                }
                default: {
-                       return initialState
+                       return state
                }
        }
 };
