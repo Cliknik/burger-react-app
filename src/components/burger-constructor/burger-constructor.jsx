@@ -2,6 +2,9 @@ import React, {useContext, useEffect, useState, useMemo} from "react";
 import PropTypes from "prop-types";
 import {useDrop} from "react-dnd";
 import {ConstructorElement, Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
+import {getOrderNumber} from '../../services/actions/orderDetails'
 
 import DataPropTypes from "../../utils/data-prop-types"
 
@@ -14,7 +17,7 @@ import {ADD_BUN, ADD_MAIN_INGREDIENT, REMOVE_MAIN_INGREDIENT} from "../../servic
 
 
 function BurgerConstructor() {
-    const modalOpened = useSelector(store => store.order);
+    const modalOpened = useSelector(store => store.order.modalOpened);
     const bun = useSelector(store => store.constructor.bun);
     const main = useSelector(store => store.constructor.main);
 
@@ -54,13 +57,11 @@ function BurgerConstructor() {
             }))
     }
 
-    // function getOrderNumber(){
-    //     sendOrderDetails(`${url}orders`, collectOrderedId())
-    //         .then((res) => {
-    //             setOrderNumber(res.order.number)
-    //         })
-    //         .catch(err => console.log(`Ошибка отправки запроса ${err}`))
-    // }
+    function getOrderId(){
+        dispatch(getOrderNumber(`${url}order`, collectOrderedId()))
+    }
+
+
 
     const orderTotal = useMemo(() => {
         if (!bun && !main) {
@@ -79,57 +80,64 @@ function BurgerConstructor() {
     },[bun, main])
 
     return(
-        <section className={styles.container} style={{boxShadow}} ref={dropTarget}>
-            <div style={{ display: 'flex', flexDirection: 'column'}}>
-                {bun ?
-                    <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text={`${bun.name} (верх)`}
-                    price={bun.price}
-                    thumbnail={bun.image}
-                    extraClass={styles.bun}
-                    key={bun._id + 'top'}
-                />
-                : null}
-                <ul className={styles.scrollArea}>
-                    {main ?
-                        main.map((item) => {
-                            return (<div className={styles.ingredientContainer}>
-                                <DragIcon type="primary" />
-                                <ConstructorElement
-                                    text={item.ingredient.data.name}
-                                    price={item.ingredient.data.price}
-                                    thumbnail={item.ingredient.data.image}
-                                    extraClass={styles.ingredientElement}
-                                    key={item.ingredient.id}
-                                    id={item.ingredient.id}
-                                />
-                            </div>)
-                    })
+        <>
+            <section className={styles.container} style={{boxShadow}} ref={dropTarget}>
+                <div style={{ display: 'flex', flexDirection: 'column'}}>
+                    {bun ?
+                        <ConstructorElement
+                        type="top"
+                        isLocked={true}
+                        text={`${bun.name} (верх)`}
+                        price={bun.price}
+                        thumbnail={bun.image}
+                        extraClass={styles.bun}
+                        key={bun._id + 'top'}
+                    />
                     : null}
-                </ul>
-                {bun ?
-                    <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text={`${bun.name} (низ)`}
-                    price={bun.price}
-                    thumbnail={bun.image}
-                    extraClass={styles.bun}
-                    key={bun._id + 'bottom'}
-                />
-                : null
-                }
-            </div>
-            <div className={styles.order}>
-                <div className={styles.total}>
-                    <p className="text text_type_digits-medium">{orderTotal}</p>
-                    <CurrencyIcon type="primary"/>
+                    <ul className={styles.scrollArea}>
+                        {main ?
+                            main.map((item) => {
+                                return (<div className={styles.ingredientContainer}>
+                                    <DragIcon type="primary" />
+                                    <ConstructorElement
+                                        text={item.ingredient.data.name}
+                                        price={item.ingredient.data.price}
+                                        thumbnail={item.ingredient.data.image}
+                                        extraClass={styles.ingredientElement}
+                                        key={item.ingredient.id}
+                                        id={item.ingredient.id}
+                                    />
+                                </div>)
+                        })
+                        : null}
+                    </ul>
+                    {bun ?
+                        <ConstructorElement
+                        type="bottom"
+                        isLocked={true}
+                        text={`${bun.name} (низ)`}
+                        price={bun.price}
+                        thumbnail={bun.image}
+                        extraClass={styles.bun}
+                        key={bun._id + 'bottom'}
+                    />
+                    : null
+                    }
                 </div>
-                {/*<Button htmlType="button" type="primary" size="large" >onClick={(evt) => {getOrderNumber(); getModalType(evt); openModal()}} id={'order-button'}>Оформить заказ</Button>*/}
-            </div>
-        </section>
+                <div className={styles.order}>
+                    <div className={styles.total}>
+                        <p className="text text_type_digits-medium">{orderTotal}</p>
+                        <CurrencyIcon type="primary"/>
+                    </div>
+                    <Button htmlType="button" type="primary" size="large" id={'order-button'} onClick={getOrderId}>Оформить заказ</Button>
+                </div>
+            </section>
+            {modalOpened &&
+                <Modal>
+                    <OrderDetails />
+                </Modal>
+            }
+        </>
     )
 }
 
