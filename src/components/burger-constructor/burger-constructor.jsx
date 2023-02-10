@@ -13,9 +13,10 @@ import {useSelector, useDispatch} from "react-redux";
 import {ADD_BUN, ADD_MAIN_INGREDIENT, REMOVE_MAIN_INGREDIENT} from "../../services/actions/constructorData";
 
 
-function BurgerConstructor(props) {
+function BurgerConstructor() {
     const modalOpened = useSelector(store => store.order);
-    const {bun, main} = useSelector(store => store.constructor);
+    const bun = useSelector(store => store.constructor.bun);
+    const main = useSelector(store => store.constructor.main);
 
     const dispatch = useDispatch();
 
@@ -49,7 +50,7 @@ function BurgerConstructor(props) {
             return item._id
         }),
             main.map((item) => {
-                return item._id
+                return item.ingredient.data._id
             }))
     }
 
@@ -65,14 +66,12 @@ function BurgerConstructor(props) {
         if (!bun && !main) {
             return 0
         } else if (!bun && main) {
-            console.log(main)
             return main.reduce((initValue, item) => {
                 return item.ingredient.data.price + initValue
             }, 0)
         } else if (!main && bun) {
             return  (bun.price * 2)
         } else {
-            console.log(main)
             return  ((bun.price * 2) + main.reduce((initValue, item) => {
                 return item.ingredient.data.price + initValue
             }, 0))
