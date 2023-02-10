@@ -1,11 +1,9 @@
 import {ADD_MAIN_INGREDIENT, ADD_BUN, REMOVE_MAIN_INGREDIENT,REMOVE_BUN} from '../actions/constructorData'
+import uuid from "react-uuid";
 
 const initialState = {
-        bun: [],
-        main: [{
-                ingredient: {},
-                id: ''
-        }]
+        bun: null,
+        main: null
 }
 
 export const constructorDataReducer = (state = initialState, action) => {
@@ -13,22 +11,25 @@ export const constructorDataReducer = (state = initialState, action) => {
                case ADD_BUN: {
                        return {
                                ...state,
-                               bun: action.item
+                               bun: action.item.data,
                        }
                }
                case ADD_MAIN_INGREDIENT: {
                        return {
                                ...state,
                                main: [...state.main, {
-                                       ingredient: action.item,
-                                       id: /тут будет айди кастомный/
-                               }]
-                       }
+                                       ingredient: {
+                                               id: uuid(),
+                                               data: action.item.data
+                                       }
+                               }
+
+                       ]}
                }
                case REMOVE_MAIN_INGREDIENT: {
                        return {
                                ...state,
-                               main: state.main.filter(ingredient => ingredient.id !== action.item.id)
+                               main: state.main.filter(item => item.ingredient.id !== action.target.id)
                        }
                }
                case REMOVE_BUN: {

@@ -1,4 +1,6 @@
-import React, {StrictMode, useState, useEffect, useContext} from 'react';
+import React, {StrictMode, useEffect} from 'react';
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 import {useDispatch, useSelector} from "react-redux";
 import appStyles from './app.module.css'
 import AppHeader from "../app-header/app-header";
@@ -21,12 +23,15 @@ function App() {
         <div className={appStyles.App}>
           <AppHeader />
             <main className={appStyles.burgerContainer}>
-                <>{
-                    itemsSuccess &&
-                    <BurgerIngredients/>
-                }
-                    {/*<BurgerConstructor setOrderNumber={setOrderNumber} getModalType={getModalType} openModal={openModal} modalOpened={modalOpened}/>*/}
-                </>
+                <DndProvider backend={HTML5Backend}>
+                    <>
+                        {
+                        itemsSuccess &&
+                        <BurgerIngredients/>
+                        }
+                        <BurgerConstructor />
+                    </>
+                </DndProvider>
             </main>
         </div>
       </StrictMode>

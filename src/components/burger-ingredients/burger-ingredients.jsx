@@ -9,7 +9,7 @@ import Styles from './burger-ingredients.module.css';
 import {bunType, sauceType, mainType} from "../../utils/constants";
 
 import Ingredient from "../ingredient/ingredient";
-import {useSelector, useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
@@ -29,8 +29,10 @@ const BurgerIngredients = () => {
     const fillings = useMemo(() => items.filter(item => item['type'] === mainType),[items]);
 
     React.useEffect(() => {
-        sectionRef.current.addEventListener('scroll', handleScroll);
-        return () => sectionRef.current.removeEventListener('scroll', handleScroll);
+        const section = sectionRef.current;
+
+        section.addEventListener('scroll', handleScroll);
+        return () => section.removeEventListener('scroll', handleScroll);
     }, [])
 
     const handleScroll = () => {
@@ -82,15 +84,15 @@ const BurgerIngredients = () => {
             <div className={Styles.scrollSection} ref={sectionRef} onScroll={activateTab}>
                 <h2 className="" id="buns" ref={bunSectionRef}>Булки</h2>
                 <div className={Styles.ingredientsContainer}>
-                    {buns.map(item => <Ingredient data={item} key={item['_id']} id={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
+                    {buns.map(item => <Ingredient data={item} key={item._id}/>)}
                 </div>
                 <h2 id="sauces" ref={saucesSectionRef}>Соусы</h2>
                 <div className={Styles.ingredientsContainer}>
-                    {sauces.map(item => <Ingredient data={item} key={item['_id']} id={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
+                    {sauces.map(item => <Ingredient data={item} key={item._id}/>)}
                 </div>
                 <h2 id="main" ref={mainSectionRef}>Начинки</h2>
                 <div className={Styles.ingredientsContainer}>
-                    {fillings.map(item => <Ingredient data={item} key={item['_id']} id={item['_id']} image={item['image']} price={item['price']} name={item['name']} />)}
+                    {fillings.map(item => <Ingredient data={item} key={item._id}/>)}
                 </div>
             </div>
         </section>
