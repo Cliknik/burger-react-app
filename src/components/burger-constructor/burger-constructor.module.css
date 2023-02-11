@@ -34,9 +34,20 @@
     background-color: #1C1C21;
 }
 
+.deleteCover {
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    top: 29px;
+    right: 48px;
+    z-index: 2;
+}
+
 .ingredientContainer {
     composes: total;
     gap: 8px;
+    position: relative;
 }
 
 .bun {

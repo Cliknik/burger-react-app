@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useEffect,useMemo} from "react";
 import PropTypes from "prop-types";
-import {useDispatch,} from "react-redux";
+import {useDispatch, useSelector,} from "react-redux";
 import {useDrag} from "react-dnd";
 
 import {CurrencyIcon, Counter} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,8 +10,16 @@ import {setIngredients} from "../../services/actions/currentIngredient";
 
 
 function Ingredient({data}) {
-
+    const constructorStore = useSelector(store => store.constructorData)
     const dispatch = useDispatch();
+
+    const counter = useMemo(() => {
+        return data.type !== 'bun'
+            ? constructorStore.main.length > 0 && constructorStore.main.reduce((initValue, i) => {
+                return i.ingredient.data._id === data._id ? initValue + 1 : initValue
+        }, 0)
+            : constructorStore.bun && constructorStore.bun._id === data._id ? 1 : 0
+    }, [constructorStore])
 
     const [{opacity}, dragItem] = useDrag({
         type: 'ingredient-item',
@@ -24,7 +32,9 @@ function Ingredient({data}) {
     return (
         <>
             <div className={styles.ingredientContainer} draggable style={{opacity}} onClick={() => dispatch(setIngredients(data))} id={data._id} ref={dragItem}>
-                <Counter count={0} extraClass="m-1" size="default" />
+                {counter > 0 &&
+                    <Counter count={counter} extraClass="m-1" size="default"/>
+                }
                 <img src={data.image} alt="Картинка ингридиента"/>
                 <p className={ `text text_type_digits-default ${styles.name}`}>{data.price} <CurrencyIcon type={"primary"} /></p>
                 <p className={ `text text_type_main-small ${styles.name}`}>{data.name}</p>

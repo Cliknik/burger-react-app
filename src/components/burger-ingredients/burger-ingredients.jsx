@@ -28,6 +28,7 @@ const BurgerIngredients = () => {
     const sauces = useMemo(() => items.filter(item => item['type'] === sauceType),[items]);
     const fillings = useMemo(() => items.filter(item => item['type'] === mainType),[items]);
 
+    //Накидываем и снимаем слушатель скролла на секцию с ингредиентами
     React.useEffect(() => {
         const section = sectionRef.current;
 
@@ -35,20 +36,24 @@ const BurgerIngredients = () => {
         return () => section.removeEventListener('scroll', handleScroll);
     }, [])
 
+    //Отслеживаем положение скролла секции ингредиентов
     const handleScroll = () => {
-        setSectionScroll(sectionRef.current.scrollTop)
+            setSectionScroll(sectionRef.current.scrollTop)
     }
 
+    //Выставляем секцию, по нажатию на Tab
     function setViewOnTab(target){
         target.current.scrollIntoView({behavior: "smooth"})
     }
 
+    //Подсвечиваем Tab в зависимости от высоты скролла секции
     function activateTab(){
-        if (sectionScroll >= 0 && sectionScroll <= 331 ) {
+        console.log(bunSectionRef.current.offsetHeight)
+        if (sectionScroll >= 0 && sectionScroll <= bunSectionRef.current.offsetHeight ) {
             setCurrent('one');
             return
         }
-        else if (sectionScroll >= 332 && sectionScroll <= 867) {
+        else if (sectionScroll > bunSectionRef.current.offsetHeight && sectionScroll <= (bunSectionRef.current.offsetHeight + saucesSectionRef.current.offsetHeight)) {
             setCurrent('two');
             return
         }
@@ -82,17 +87,23 @@ const BurgerIngredients = () => {
                 </Tab>
             </nav>
             <div className={Styles.scrollSection} ref={sectionRef} onScroll={activateTab}>
-                <h2 className="" id="buns" ref={bunSectionRef}>Булки</h2>
-                <div className={Styles.ingredientsContainer}>
-                    {buns.map(item => <Ingredient data={item} key={item._id}/>)}
+                <div ref={bunSectionRef}>
+                    <h2 className="" id="buns" >Булки</h2>
+                    <div className={Styles.ingredientsContainer}>
+                        {buns.map(item => <Ingredient data={item} key={item._id}/>)}
+                    </div>
                 </div>
-                <h2 id="sauces" ref={saucesSectionRef}>Соусы</h2>
-                <div className={Styles.ingredientsContainer}>
-                    {sauces.map(item => <Ingredient data={item} key={item._id}/>)}
+                <div ref={saucesSectionRef}>
+                    <h2 id="sauces" >Соусы</h2>
+                    <div className={Styles.ingredientsContainer}>
+                        {sauces.map(item => <Ingredient data={item} key={item._id}/>)}
+                    </div>
                 </div>
-                <h2 id="main" ref={mainSectionRef}>Начинки</h2>
-                <div className={Styles.ingredientsContainer}>
-                    {fillings.map(item => <Ingredient data={item} key={item._id}/>)}
+                <div ref={mainSectionRef}>
+                    <h2 id="main" >Начинки</h2>
+                    <div className={Styles.ingredientsContainer}>
+                        {fillings.map(item => <Ingredient data={item} key={item._id}/>)}
+                    </div>
                 </div>
             </div>
         </section>

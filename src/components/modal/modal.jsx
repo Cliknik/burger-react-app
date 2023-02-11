@@ -7,6 +7,7 @@ import styles from './modal.module.css'
 import ModalLayout from "../modal-layout/modal-layout";
 import {RESET_INGREDIENT_MODAL} from "../../services/actions/currentIngredient";
 import {useDispatch} from "react-redux";
+import {RESET_ORDER_NUMBER} from "../../services/actions/orderDetails";
 
 const modalRoot = document.getElementById('react-modals');
 
@@ -14,7 +15,7 @@ export default function Modal(props) {
     const {children} = props;
     const dispatch = useDispatch();
 
-
+    //Навешиваем при монтировании и снимаем при размонтировании слушателя кнопки Esc
     useEffect(() => {
         document.addEventListener('keydown', escButtonHandler)
 
@@ -23,10 +24,21 @@ export default function Modal(props) {
         }
     }, [])
 
+
+    // Закрываем модалку в зависимости от типа ребенка
     function closeModal(){
-        dispatch({
-            type: RESET_INGREDIENT_MODAL
-        })
+        switch (children.type.name) {
+            case 'OrderDetails': {
+                dispatch({
+                    type: RESET_ORDER_NUMBER
+                })
+            }
+            case 'IngredientDetails': {
+                dispatch({
+                    type: RESET_INGREDIENT_MODAL
+                })
+            }
+        }
     }
 
     function escButtonHandler(event){

@@ -1,25 +1,20 @@
-import React, {useContext, useEffect, useState, useMemo} from "react";
-import PropTypes from "prop-types";
-import {useDrop} from "react-dnd";
+import React, {useMemo} from "react";
+
+import {useDrop, useDrag} from "react-dnd";
 import {ConstructorElement, Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {getOrderNumber} from '../../services/actions/orderDetails'
 
-import DataPropTypes from "../../utils/data-prop-types"
-
-import {sendOrderDetails} from "../../utils/work-with-api";
 import {url} from  '../../utils/constants'
 
 import styles from './burger-constructor.module.css'
 import {useSelector, useDispatch} from "react-redux";
 import {ADD_BUN, ADD_MAIN_INGREDIENT, REMOVE_MAIN_INGREDIENT} from "../../services/actions/constructorData";
 
-
 function BurgerConstructor() {
     const modalOpened = useSelector(store => store.order.modalOpened);
-    const bun = useSelector(store => store.constructor.bun);
-    const main = useSelector(store => store.constructor.main);
+    const {bun, main} = useSelector(store => store.constructorData);
 
     const dispatch = useDispatch();
 
@@ -33,32 +28,38 @@ function BurgerConstructor() {
     const [{boxShadow}, dropTarget] = useDrop({
         accept: 'ingredient-item',
         drop: (item) => {
-            item.data.type === 'bun'
-                ? dispatch({
-                type: ADD_BUN,
-                item
+            if (item.data.type === 'bun') {
+                dispatch({
+                    type: ADD_BUN,
+                    item
                 })
-                : dispatch({
-                type: ADD_MAIN_INGREDIENT,
-                item
+            }
+            else {
+                dispatch({
+                    type: ADD_MAIN_INGREDIENT,
+                    item
                 })
-            },
+            }
+        },
         collect: monitor => ({
                 boxShadow: monitor.isOver() ? '0px 0px 5px 6px rgba(34, 60, 80, 0.6) inset' : 'none'
             })
         })
 
+    const [{opacity}, dragTarget] = useDrag({
+        type: 'constructor-item',
+
+    })
+
     function collectOrderedId(){
-        return [].concat(bun.map((item) => {
-            return item._id
-        }),
+        return [].concat(bun._id,
             main.map((item) => {
                 return item.ingredient.data._id
             }))
     }
 
     function getOrderId(){
-        dispatch(getOrderNumber(`${url}order`, collectOrderedId()))
+        dispatch(getOrderNumber(`${url}orders`, collectOrderedId()))
     }
 
 
@@ -79,6 +80,8 @@ function BurgerConstructor() {
         }
     },[bun, main])
 
+    const trueForDrag = 'true'
+
     return(
         <>
             <section className={styles.container} style={{boxShadow}} ref={dropTarget}>
@@ -91,22 +94,23 @@ function BurgerConstructor() {
                         price={bun.price}
                         thumbnail={bun.image}
                         extraClass={styles.bun}
-                        key={bun._id + 'top'}
+                        key={bun.id}
                     />
                     : null}
                     <ul className={styles.scrollArea}>
                         {main ?
-                            main.map((item) => {
-                                return (<div className={styles.ingredientContainer}>
-                                    <DragIcon type="primary" />
-                                    <ConstructorElement
-                                        text={item.ingredient.data.name}
-                                        price={item.ingredient.data.price}
-                                        thumbnail={item.ingredient.data.image}
-                                        extraClass={styles.ingredientElement}
-                                        key={item.ingredient.id}
-                                        id={item.ingredient.id}
-                                    />
+                            main.map((item, index) => {
+                                return (<div className={styles.ingredientContainer} key={item.ingredient.id} ref={dragTarget} id={item.ingredient.id} draggable={trueForDrag}>
+                                            <DragIcon type="primary" />
+                                            <ConstructorElement
+                                                text={item.ingredient.data.name}
+                                                price={item.ingredient.data.price}
+                                                thumbnail={item.ingredient.data.image}
+                                                extraClass={styles.ingredientElement}
+                                                handleClose={(e) => {
+                                                    removeIngredient(e)
+                                                }}
+                                            />
                                 </div>)
                         })
                         : null}
@@ -119,7 +123,7 @@ function BurgerConstructor() {
                         price={bun.price}
                         thumbnail={bun.image}
                         extraClass={styles.bun}
-                        key={bun._id + 'bottom'}
+                        key={bun.id}
                     />
                     : null
                     }
@@ -140,9 +144,5 @@ function BurgerConstructor() {
         </>
     )
 }
-
-// BurgerConstructor.propTypes = {
-//     items: PropTypes.arrayOf(DataPropTypes).isRequired
-// }
 
 export default BurgerConstructor;

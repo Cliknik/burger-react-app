@@ -19,7 +19,7 @@ export const constructorDataReducer = (state = initialState, action) => {
                                ...state,
                                main: [...state.main, {
                                        ingredient: {
-                                               id: uuid,
+                                               id: uuid(),
                                                data: action.item.data
                                        }
                                }
@@ -28,12 +28,11 @@ export const constructorDataReducer = (state = initialState, action) => {
                case REMOVE_MAIN_INGREDIENT: {
                        return {
                                ...state,
-                               main: state.main.filter(item => item.ingredient.id !== action.target.id)
+                               main: state.main.filter(item => item.ingredient.id !== action.e.target.parentElement.parentElement.offsetParent.id)
                        }
                }
                default: {
-                       const main = state.main ? state.main : []
-                       return {...state, main}
+                       return state
                }
        }
 };

@@ -3,7 +3,7 @@ import {GET_ORDER_NUMBER_REQUEST, GET_ORDER_NUMBER_FAILED, GET_ORDER_NUMBER_SUCC
 const initialState = {
     idRequest: false,
     idSuccess: false,
-    orderID: '',
+    orderID: 0,
     modalOpened: false
 }
 
@@ -16,8 +16,8 @@ export const orderReducer = (state = initialState, action) => {
             }
         }
         case GET_ORDER_NUMBER_SUCCESS: {
+            console.log(action.payload)
             return {
-                ...state,
                 idRequest: false,
                 idSuccess: true,
                 orderID: action.payload,
