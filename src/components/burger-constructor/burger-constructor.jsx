@@ -11,19 +11,23 @@ import {url} from  '../../utils/constants'
 import styles from './burger-constructor.module.css'
 import {useSelector, useDispatch} from "react-redux";
 import {ADD_BUN, ADD_MAIN_INGREDIENT, REMOVE_MAIN_INGREDIENT} from "../../services/actions/constructorData";
+import MainConstructorItem from "../main-constructor-item/main-constructor-item";
 
 function BurgerConstructor() {
-    const modalOpened = useSelector(store => store.order.modalOpened);
-    const {bun, main} = useSelector(store => store.constructorData);
-
     const dispatch = useDispatch();
 
-    function removeIngredient(e){
+    const modalOpened = useSelector(store => store.order.modalOpened);
+    const isOrderRequest = useSelector(store => store.order.idRequest);
+    const {bun, main} = useSelector(store => store.constructorData);
+
+    function removeIngredient(item){
         dispatch({
             type: REMOVE_MAIN_INGREDIENT,
-            e
+            item
         })
     }
+
+    const buttonText = isOrderRequest ? 'Отправляем Ваш заказ' : 'Оформить заказ'
 
     const [{boxShadow}, dropTarget] = useDrop({
         accept: 'ingredient-item',
@@ -54,7 +58,7 @@ function BurgerConstructor() {
     function collectOrderedId(){
         return [].concat(bun._id,
             main.map((item) => {
-                return item.ingredient.data._id
+                return item._id
             }))
     }
 
@@ -69,13 +73,13 @@ function BurgerConstructor() {
             return 0
         } else if (!bun && main) {
             return main.reduce((initValue, item) => {
-                return item.ingredient.data.price + initValue
+                return item.price + initValue
             }, 0)
         } else if (!main && bun) {
             return  (bun.price * 2)
         } else {
             return  ((bun.price * 2) + main.reduce((initValue, item) => {
-                return item.ingredient.data.price + initValue
+                return item.price + initValue
             }, 0))
         }
     },[bun, main])
@@ -98,19 +102,13 @@ function BurgerConstructor() {
                     <ul className={styles.scrollArea}>
                         {main ?
                             main.map((item, index) => {
-                                return (<div ref={dragTarget}  className={styles.ingredientContainer} key={item.ingredient.id} id={item.ingredient.id}>
-                                            <DragIcon type="primary" />
-                                            <ConstructorElement
-                                                text={item.ingredient.data.name}
-                                                price={item.ingredient.data.price}
-                                                thumbnail={item.ingredient.data.image}
-                                                extraClass={styles.ingredientElement}
-                                                handleClose={(e) => {
-                                                    removeIngredient(e)
-                                                }}
-                                            />
-                                </div>)
-                        })
+                                return <MainConstructorItem
+                                        handleDelete={removeIngredient}
+                                        key={item.id}
+                                        index={index}
+                                        item={item}
+                                />
+                                })
                         : null}
                     </ul>
                     {bun ?
@@ -131,7 +129,7 @@ function BurgerConstructor() {
                         <p className="text text_type_digits-medium">{orderTotal}</p>
                         <CurrencyIcon type="primary"/>
                     </div>
-                    <Button disabled={!(bun && main.length > 0)} htmlType="button" type="primary" size="large" id={'order-button'} onClick={getOrderId}>Оформить заказ</Button>
+                    <Button disabled={!(bun && main.length > 0)} htmlType="button" type="primary" size="large" id={'order-button'} onClick={getOrderId}>{buttonText}</Button>
                 </div>
             </section>
             {modalOpened &&

@@ -16,7 +16,7 @@ function Ingredient({data}) {
     const counter = useMemo(() => {
         return data.type !== 'bun'
             ? constructorStore.main.length > 0 && constructorStore.main.reduce((initValue, i) => {
-                return i.ingredient.data._id === data._id ? initValue + 1 : initValue
+                return i._id === data._id ? initValue + 1 : initValue
         }, 0)
             : constructorStore.bun && constructorStore.bun._id === data._id ? 1 : 0
     }, [constructorStore])

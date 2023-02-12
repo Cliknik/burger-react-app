@@ -48,7 +48,6 @@ const BurgerIngredients = () => {
 
     //Подсвечиваем Tab в зависимости от высоты скролла секции
     function activateTab(){
-        console.log(bunSectionRef.current.offsetHeight)
         if (sectionScroll >= 0 && sectionScroll <= bunSectionRef.current.offsetHeight ) {
             setCurrent('one');
             return
