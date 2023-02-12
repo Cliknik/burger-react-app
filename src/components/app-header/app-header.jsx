@@ -20,7 +20,7 @@ function AppHeader() {
                     <Logo />
                     <a className={ `pl-5 ${appHeaderStyles.navAccount}` } href='#'>
                         <ProfileIcon type={"secondary"} />
-                        <p className={`text text_type_main-small text_color_inactive pl-2 pr-5 ${appHeaderStyles.navAccountLink}`}>Личный кабинет</p>
+                        <p className={`text text_type_main-small text_color_inactive pl-2 pr-5 ${appHeaderStyles.navAccountLink}`} >Личный кабинет</p>
                     </a>
                 </nav>
             </header>

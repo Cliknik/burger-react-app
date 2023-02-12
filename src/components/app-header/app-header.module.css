@@ -30,6 +30,11 @@
     align-items: center;
     color: inherit;
     justify-self: flex-end;
+    text-decoration: none;
+}
+
+.navAccount > * {
+    text-decoration: none;
 }
 
 .navAccountLink {

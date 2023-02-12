@@ -1,72 +1,41 @@
-import React, {StrictMode, useState, useEffect, useContext} from 'react';
+import React, {StrictMode, useEffect} from 'react';
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {useDispatch, useSelector} from "react-redux";
 import appStyles from './app.module.css'
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import ModalLayout from "../modal-layout/modal-layout";
 import {url} from '../../utils/constants';
-import {getDataFromServer} from "../../utils/work-with-api";
-import {IngredientsContext} from '../../services/ingredientsContext'
+import {getIngredientsData} from "../../services/actions/ingredientsData";
 
 function App() {
-    const [ingredients, setIngredients] = useState(null);
-    const [modalOpened, setModalOpened] = useState(false);
-    const [modalContent, setModalContent] = useState(null);
-    const [ingredientId, setIngredientId] = useState(null);
-    const [orderNumber, setOrderNumber] = useState(0);
+    const dispatch = useDispatch();
 
-    const getProductData = () => {
-        getDataFromServer(`${url}ingredients`)
-            .then(dataIng => {
-                setIngredients(dataIng.data);
-            })
-            .catch(e => console.log(`Что-то пошло не так. ${e}`))
-    }
-
-    function openModal(){
-        setModalOpened(true);
-    }
-
-    function closeModal(){
-        setModalOpened(false);
-        setOrderNumber(null);
-    }
-
-    function getModalType(evt){
-        if (evt.currentTarget.className.includes('ingredient')) {
-            setModalContent('ingredient');
-        }
-        else {
-            setModalContent('order');
-        }
-    }
-
-    function getClickedIngredientId(evt) {
-        setIngredientId(evt.currentTarget.id)
-    }
+    const itemsSuccess = useSelector(state => state.ingredients);
 
     useEffect(() => {
-        getProductData();
-    }, [])
+        dispatch(getIngredientsData(`${url}ingredients`))
+    }, [dispatch])
 
     return (
       <StrictMode>
         <div className={appStyles.App}>
-          <AppHeader />{
-            ingredients &&
-            <IngredientsContext.Provider value={{ingredients}}>
-                <main className={appStyles.burgerContainer}>
+          <AppHeader />
+            <main className={appStyles.burgerContainer}>
+                <DndProvider backend={HTML5Backend}>
                     <>
-                        <BurgerIngredients getClickedIngredientId={getClickedIngredientId} getModalType={getModalType} openModal={openModal} modalOpened={modalOpened}/>
-                        <BurgerConstructor setOrderNumber={setOrderNumber} getModalType={getModalType} items={ingredients} openModal={openModal} modalOpened={modalOpened}/>
+                        {
+                        itemsSuccess &&
+                        <BurgerIngredients/>
+                        }
+                        <BurgerConstructor />
                     </>
-                </main>
-                <ModalLayout orderNumber={orderNumber} ingredientId={ingredientId} ingredients={ingredients} modalContent={modalContent} modalOpened={modalOpened} openModal={openModal} closeModal={closeModal}/>
-            </IngredientsContext.Provider>
-        }
+                </DndProvider>
+            </main>
         </div>
       </StrictMode>
   );
 }
 
-export default App;
+export const MemoizedApp = React.memo(App) ;
