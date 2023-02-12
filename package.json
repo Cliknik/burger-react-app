@@ -34,11 +34,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy" : "npm run build",
-    "deploy": "gh-pages -b master -d build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Cliknik/burger-react-app"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
