@@ -1,4 +1,5 @@
 import update from "immutability-helper";
+import uuid from "react-uuid";
 
 export const ADD_BUN = 'ADD_BUN';
 export const ADD_MAIN_INGREDIENT = 'ADD_MAIN_INGREDIENT';
@@ -19,6 +20,15 @@ export function sortConstructorIngredients(dragIndex, hoverIndex, store){
         dispatch({
             type: SORT_CONSTRUCTOR_INGREDIENTS,
             payload: sortedArray
+        })
+    }
+}
+
+export function addMainIngredient(item){
+    return function(dispatch){
+        dispatch({
+            type: ADD_MAIN_INGREDIENT,
+            payload: {item: item.data, id: uuid()}
         })
     }
 }

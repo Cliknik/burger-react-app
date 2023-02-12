@@ -10,7 +10,12 @@ import {url} from  '../../utils/constants'
 
 import styles from './burger-constructor.module.css'
 import {useSelector, useDispatch} from "react-redux";
-import {ADD_BUN, ADD_MAIN_INGREDIENT, REMOVE_MAIN_INGREDIENT} from "../../services/actions/constructorData";
+import {
+    ADD_BUN,
+    ADD_MAIN_INGREDIENT,
+    addMainIngredient,
+    REMOVE_MAIN_INGREDIENT
+} from "../../services/actions/constructorData";
 import MainConstructorItem from "../main-constructor-item/main-constructor-item";
 
 function BurgerConstructor() {
@@ -39,10 +44,7 @@ function BurgerConstructor() {
                 })
             }
             else {
-                dispatch({
-                    type: ADD_MAIN_INGREDIENT,
-                    item
-                })
+                dispatch(addMainIngredient(item))
             }
         },
         collect: monitor => ({

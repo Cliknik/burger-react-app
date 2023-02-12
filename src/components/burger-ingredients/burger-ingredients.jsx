@@ -1,8 +1,5 @@
 import React, {useState, useMemo, useRef} from "react";
-import PropTypes from "prop-types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-
-import DataPropTypes from "../../utils/data-prop-types"
 
 import Styles from './burger-ingredients.module.css';
 

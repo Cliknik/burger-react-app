@@ -1,4 +1,4 @@
-import {GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_FAILED, GET_INGREDIENTS_SUCCESS, INCREASE_INGREDIENT_COUNTER, DECREASE_INGREDIENT_COUNTER} from "../actions/ingredientsData";
+import {GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_FAILED, GET_INGREDIENTS_SUCCESS} from "../actions/ingredientsData";
 
 
 const initialState= {
@@ -25,8 +25,7 @@ export const ingredientsDataReducer = (state = initialState, action) => {
         }
         case GET_INGREDIENTS_FAILED: {
             return {
-                ...state,
-                itemsRequest: false,
+                initialState
             }
         }
         default:{

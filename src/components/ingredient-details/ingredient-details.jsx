@@ -1,7 +1,4 @@
-import DataPropTypes from '../../utils/data-prop-types'
-
 import styles from './ingredient-details.module.css'
-import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 
 function IngredientDetails(){
@@ -34,9 +31,5 @@ function IngredientDetails(){
         </>
     )
 }
-
-// IngredientDetails.propTypes = {
-//     actualIngredient: PropTypes.arrayOf(DataPropTypes).isRequired
-// }
 
 export default IngredientDetails;

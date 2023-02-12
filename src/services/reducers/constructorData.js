@@ -22,7 +22,7 @@ export const constructorDataReducer = (state = initialState, action) => {
                case ADD_MAIN_INGREDIENT: {
                        return {
                                ...state,
-                               main: [...state.main, {...action.item.data, id: uuid()}
+                               main: [...state.main, {...action.payload.item, id: action.payload.id}
                        ]}
                }
                case REMOVE_MAIN_INGREDIENT: {
