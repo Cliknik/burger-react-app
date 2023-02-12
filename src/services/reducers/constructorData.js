@@ -5,7 +5,6 @@ import {
         SORT_CONSTRUCTOR_INGREDIENTS
 } from '../actions/constructorData'
 import uuid from "react-uuid";
-import update from 'immutability-helper';
 
 const initialState = {
         bun: null,

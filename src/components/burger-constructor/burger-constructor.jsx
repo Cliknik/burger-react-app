@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 
-import {useDrop, useDrag} from "react-dnd";
+import {useDrop} from "react-dnd";
 import {ConstructorElement, Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
@@ -49,11 +49,6 @@ function BurgerConstructor() {
                 boxShadow: monitor.isOver() ? '0px 0px 5px 6px rgba(34, 60, 80, 0.6) inset' : 'none'
             })
         })
-
-    const [{opacity}, dragTarget] = useDrag({
-        type: 'constructor-item',
-
-    })
 
     function collectOrderedId(){
         return [].concat(bun._id,

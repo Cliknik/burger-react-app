@@ -3,7 +3,6 @@ import {useDrop, useDrag} from "react-dnd";
 import {useDispatch, useSelector} from "react-redux";
 import styles from "../burger-constructor/burger-constructor.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {SORT_CONSTRUCTOR_INGREDIENTS} from "../../services/actions/constructorData";
 import {sortConstructorIngredients} from "../../services/actions/constructorData";
 
 const MainConstructorItem = ({handleDelete, index, item}) => {
@@ -47,7 +46,10 @@ const MainConstructorItem = ({handleDelete, index, item}) => {
             //Присваиваем новый индекс
             item.index = hoverIndex;
 
-        }
+        },
+        collect: monitor => ({
+            onHover: monitor.isOver()
+        })
     });
 
     const [{opacity}, dragTarget] = useDrag({
