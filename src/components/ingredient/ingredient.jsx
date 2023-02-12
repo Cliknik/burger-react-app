@@ -31,7 +31,7 @@ function Ingredient({data}) {
 
     return (
         <>
-            <div className={styles.ingredientContainer} draggable style={{opacity}} onClick={() => dispatch(setIngredients(data))} id={data._id} ref={dragItem}>
+            <div className={styles.ingredientContainer} style={{opacity}} onClick={() => dispatch(setIngredients(data))} id={data._id} ref={dragItem}>
                 {counter > 0 &&
                     <Counter count={counter} extraClass="m-1" size="default"/>
                 }

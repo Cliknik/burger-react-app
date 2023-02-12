@@ -80,8 +80,6 @@ function BurgerConstructor() {
         }
     },[bun, main])
 
-    const trueForDrag = 'true'
-
     return(
         <>
             <section className={styles.container} style={{boxShadow}} ref={dropTarget}>
@@ -100,7 +98,7 @@ function BurgerConstructor() {
                     <ul className={styles.scrollArea}>
                         {main ?
                             main.map((item, index) => {
-                                return (<div className={styles.ingredientContainer} key={item.ingredient.id} ref={dragTarget} id={item.ingredient.id} draggable={trueForDrag}>
+                                return (<div ref={dragTarget}  className={styles.ingredientContainer} key={item.ingredient.id} id={item.ingredient.id}>
                                             <DragIcon type="primary" />
                                             <ConstructorElement
                                                 text={item.ingredient.data.name}
@@ -133,7 +131,7 @@ function BurgerConstructor() {
                         <p className="text text_type_digits-medium">{orderTotal}</p>
                         <CurrencyIcon type="primary"/>
                     </div>
-                    <Button htmlType="button" type="primary" size="large" id={'order-button'} onClick={getOrderId}>Оформить заказ</Button>
+                    <Button disabled={!(bun && main.length > 0)} htmlType="button" type="primary" size="large" id={'order-button'} onClick={getOrderId}>Оформить заказ</Button>
                 </div>
             </section>
             {modalOpened &&
