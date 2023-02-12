@@ -4,7 +4,6 @@ import {
         REMOVE_MAIN_INGREDIENT,
         SORT_CONSTRUCTOR_INGREDIENTS
 } from '../actions/constructorData'
-import uuid from "react-uuid";
 
 const initialState = {
         bun: null,
