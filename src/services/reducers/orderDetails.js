@@ -26,12 +26,12 @@ export const orderReducer = (state = initialState, action) => {
         }
         case GET_ORDER_NUMBER_FAILED: {
             return {
-                initialState
+                ...initialState
             }
         }
         case RESET_ORDER_NUMBER: {
             return {
-                initialState
+                ...initialState
             }
         }
         default: return state

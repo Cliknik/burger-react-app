@@ -25,7 +25,7 @@ export const ingredientsDataReducer = (state = initialState, action) => {
         }
         case GET_INGREDIENTS_FAILED: {
             return {
-                initialState
+                ...initialState
             }
         }
         default:{

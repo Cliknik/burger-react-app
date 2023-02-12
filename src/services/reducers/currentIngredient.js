@@ -15,7 +15,7 @@ export const currentIngredientReducer = (state = initialState, action) => {
             }
         }
         case RESET_INGREDIENT_MODAL:{
-            return initialState
+            return {...initialState}
         }
         default: {
             return state
