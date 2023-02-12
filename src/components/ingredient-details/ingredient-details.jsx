@@ -1,8 +1,9 @@
 import styles from './ingredient-details.module.css'
 import {useSelector} from "react-redux";
+import {getCurrentIngredient} from "../../utils/constants";
 
 function IngredientDetails(){
-    const item = useSelector(store => store.currentIngredient.item)
+    const {item} = useSelector(getCurrentIngredient)
     return(
         <>
             <h2 className={`mt-10 text text_type_main-large ${styles.title}`}>Детали Ингридиента</h2>

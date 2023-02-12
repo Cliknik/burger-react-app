@@ -3,7 +3,7 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import Styles from './burger-ingredients.module.css';
 
-import {bunType, sauceType, mainType} from "../../utils/constants";
+import {bunType, sauceType, mainType, getIngredients} from "../../utils/constants";
 
 import Ingredient from "../ingredient/ingredient";
 import {useSelector} from "react-redux";
@@ -11,7 +11,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredients = () => {
-    const items = useSelector(store => store.ingredients.items)
+    const {items} = useSelector(getIngredients)
     const modalOpened = useSelector(store => store.currentIngredient.modalOpened)
     const [current, setCurrent] = useState('one');
     const [sectionScroll, setSectionScroll] = useState(0);

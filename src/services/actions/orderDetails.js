@@ -12,7 +12,6 @@ export function getOrderNumber(url, details){
         })
         sendOrderDetails(url, details)
             .then((res) => {
-                console.log(res.order.number)
                 dispatch({
                     type: GET_ORDER_NUMBER_SUCCESS,
                     payload: res.order.number

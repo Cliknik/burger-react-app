@@ -4,9 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 import styles from "../burger-constructor/burger-constructor.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {sortConstructorIngredients} from "../../services/actions/constructorData";
+import {getConstructorData} from "../../utils/constants";
 
 const MainConstructorItem = ({handleDelete, index, item}) => {
-    const main = useSelector(store => store.constructorData.main)
+    const {main} = useSelector(getConstructorData)
     const dispatch = useDispatch();
     const ref = useRef(null)
     const id = item._id

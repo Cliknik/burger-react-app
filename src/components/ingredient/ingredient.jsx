@@ -7,10 +7,11 @@ import {CurrencyIcon, Counter} from "@ya.praktikum/react-developer-burger-ui-com
 
 import styles from './ingredient.module.css'
 import {setIngredients} from "../../services/actions/currentIngredient";
+import {getConstructorData} from "../../utils/constants";
 
 
 function Ingredient({data}) {
-    const constructorStore = useSelector(store => store.constructorData)
+    const constructorStore = useSelector(getConstructorData)
     const dispatch = useDispatch();
 
     const counter = useMemo(() => {

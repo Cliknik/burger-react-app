@@ -11,8 +11,7 @@ import {RESET_ORDER_NUMBER} from "../../services/actions/orderDetails";
 
 const modalRoot = document.getElementById('react-modals');
 
-export default function Modal(props) {
-    const {children} = props;
+export default function Modal({children}) {
     const dispatch = useDispatch();
 
     //Навешиваем при монтировании и снимаем при размонтировании слушателя кнопки Esc

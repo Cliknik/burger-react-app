@@ -1,18 +1,17 @@
 import React, {useMemo} from "react";
 
 import {useDrop} from "react-dnd";
-import {ConstructorElement, Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {getOrderNumber} from '../../services/actions/orderDetails'
 
-import {url} from  '../../utils/constants'
+import {url, getOrder, getConstructorData} from  '../../utils/constants'
 
 import styles from './burger-constructor.module.css'
 import {useSelector, useDispatch} from "react-redux";
 import {
     ADD_BUN,
-    ADD_MAIN_INGREDIENT,
     addMainIngredient,
     REMOVE_MAIN_INGREDIENT
 } from "../../services/actions/constructorData";
@@ -21,9 +20,8 @@ import MainConstructorItem from "../main-constructor-item/main-constructor-item"
 function BurgerConstructor() {
     const dispatch = useDispatch();
 
-    const modalOpened = useSelector(store => store.order.modalOpened);
-    const isOrderRequest = useSelector(store => store.order.idRequest);
-    const {bun, main} = useSelector(store => store.constructorData);
+    const {modalOpened, isOrderRequest} = useSelector(getOrder);
+    const {bun, main} = useSelector(getConstructorData);
 
     function removeIngredient(item){
         dispatch({
