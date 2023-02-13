@@ -16,10 +16,14 @@ export default function Modal({children}) {
 
     //Навешиваем при монтировании и снимаем при размонтировании слушателя кнопки Esc
     useEffect(() => {
-        document.addEventListener('keydown', escButtonHandler)
+        document.addEventListener('keydown', (e) => {
+            escButtonHandler(e)
+        })
 
         return () => {
-            document.removeEventListener('keydown', escButtonHandler)
+            document.removeEventListener('keydown', (e) => {
+                escButtonHandler(e)
+            })
         }
     }, [children])
 
@@ -50,7 +54,7 @@ export default function Modal({children}) {
         (<>
             <div className={styles.modal}>
                 <div className={styles.closeIcon}>
-                    <CloseIcon type="primary" onClick={closeModal}/>
+                    <CloseIcon type="primary" onClick={() => closeModal()}/>
                 </div>
                 {children}
             </div>
