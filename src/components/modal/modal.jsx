@@ -21,7 +21,7 @@ export default function Modal({children}) {
         return () => {
             document.removeEventListener('keydown', escButtonHandler)
         }
-    }, [])
+    }, [children])
 
 
     // Закрываем модалку в зависимости от типа ребенка
@@ -48,7 +48,7 @@ export default function Modal({children}) {
 
     return ReactDOM.createPortal(
         (<>
-            <div className={styles.modal} onClick={e => e.stopPropagation()}>
+            <div className={styles.modal}>
                 <div className={styles.closeIcon}>
                     <CloseIcon type="primary" onClick={closeModal}/>
                 </div>

@@ -20,7 +20,7 @@ import MainConstructorItem from "../main-constructor-item/main-constructor-item"
 function BurgerConstructor() {
     const dispatch = useDispatch();
 
-    const {modalOpened, isOrderRequest} = useSelector(getOrder);
+    const {modalOpened, idRequest} = useSelector(getOrder);
     const {bun, main} = useSelector(getConstructorData);
 
     function removeIngredient(item){
@@ -30,7 +30,7 @@ function BurgerConstructor() {
         })
     }
 
-    const buttonText = isOrderRequest ? 'Отправляем Ваш заказ' : 'Оформить заказ'
+    const buttonText = idRequest ? 'Отправляем Ваш заказ' : 'Оформить заказ'
 
     const [{boxShadow}, dropTarget] = useDrop({
         accept: 'ingredient-item',
@@ -78,6 +78,8 @@ function BurgerConstructor() {
             }, 0))
         }
     },[bun, main])
+
+    console.log(idRequest)
 
     return(
         <>

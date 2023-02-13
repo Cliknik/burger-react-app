@@ -5,7 +5,7 @@ import styles from './modal-layout.module.css'
 const ModalLayout = ({closeModal}) => {
 
     return (
-        <div className={styles.wrapper} onClick={closeModal}>
+        <div className={styles.wrapper} onClick={() => closeModal()}>
         </div>
     );
 }
