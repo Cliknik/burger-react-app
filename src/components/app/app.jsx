@@ -1,16 +1,12 @@
 import React, {StrictMode, useEffect} from 'react';
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
-import {useDispatch, useSelector} from "react-redux";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import { Routes, Route} from "react-router-dom";
 
 import appStyles from './app.module.css'
 
 import AppHeader from "../app-header/app-header";
 
-import {MainPage} from "../../pages/main-page";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import {LoginPage, MainPage, ForgotPasswordPage, RegisterPage, ResetPasswordPage, ProfilePage} from "../../pages";
 
 import {url} from '../../utils/constants';
 import {getIngredientsData} from "../../services/actions/ingredientsData";
@@ -18,7 +14,6 @@ import {getIngredientsData} from "../../services/actions/ingredientsData";
 function App() {
     const dispatch = useDispatch();
 
-    const itemsSuccess = useSelector(state => state.ingredients);
 
     useEffect(() => {
         dispatch(getIngredientsData(`${url}ingredients`))
@@ -27,22 +22,18 @@ function App() {
     return (
       <StrictMode>
         <div className={appStyles.App}>
-          <AppHeader />
+            <AppHeader />
             <main className={appStyles.burgerContainer}>
-                {/*<Router>*/}
-                {/*    <Routes>*/}
-                {/*        <Route path="/" element={<MainPage />} />*/}
-                {/*    </Routes>*/}
-                {/*</Router>*/}
-                {/*<DndProvider backend={HTML5Backend}>*/}
-                {/*    <>*/}
-                {/*        {*/}
-                {/*        itemsSuccess &&*/}
-                {/*        <BurgerIngredients/>*/}
-                {/*        }*/}
-                {/*        <BurgerConstructor />*/}
-                {/*    </>*/}
-                {/*</DndProvider>*/}
+                <Routes>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                    <Route path="/reset-password" element={ <ResetPasswordPage /> } />
+                    <Route path="/profile" element={ <ProfilePage /> } />
+                    {/*<Route path="/ingredients/:id" />*/}
+                    {/*<Route path="*" element={ <PageNotFound />} />*/}
+                </Routes>
             </main>
         </div>
       </StrictMode>

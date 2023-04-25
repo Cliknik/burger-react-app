@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter as Router} from "react-router-dom";
 import './index.css';
 import {MemoizedApp} from './components/app/app';
 import reportWebVitals from './reportWebVitals';
@@ -20,9 +21,11 @@ const store = createStore(rootReducer, enchancer)
 const root = document.getElementById('root');
 
 ReactDOM.render(
-    <Provider store={store}>
-        <MemoizedApp />
-    </Provider>,
+    <Router>
+        <Provider store={store}>
+            <MemoizedApp />
+        </Provider>
+    </Router>,
     root
 );
 
