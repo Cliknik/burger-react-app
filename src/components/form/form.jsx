@@ -55,7 +55,12 @@ export const Form = ({
             <form className={styles.form}>
                 {children}
             </form>
-            <Button size="medium" type="primary" style={{ marginBottom: '56px'}}>
+            <Button
+                size="medium"
+                type="primary"
+                style={{ marginBottom: '56px'}}
+                htmlType={"submit"}
+            >
                 {buttonText}
             </Button>
             <BottomNavigation
