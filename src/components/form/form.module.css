@@ -1,0 +1,31 @@
+.container {
+    padding-top: 180px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.bottomTextContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.link {
+    text-decoration: none;
+    color: #4C4CFF;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: white;
+}

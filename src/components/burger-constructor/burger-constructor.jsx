@@ -79,8 +79,6 @@ function BurgerConstructor() {
         }
     },[bun, main])
 
-    console.log(idRequest)
-
     return(
         <>
             <section className={styles.container} style={{boxShadow}} ref={dropTarget}>
